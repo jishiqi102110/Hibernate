@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="Po.User" table="t_user">
+        <id name="id" column="uid">
+        <generator class="native"/>
+        </id>
+        <property name="name" column="name"/>
+        <property name="password" column="password"/>
+        <many-to-one name="group" foreign-key="fk_user_groupid_group_gid">
+                 <column name="grou_id"></column>
+        </many-to-one>
+   </class>
+</hibernate-mapping>    
+    
