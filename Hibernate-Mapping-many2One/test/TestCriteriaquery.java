@@ -1,3 +1,4 @@
+import java.security.acl.Group;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -7,6 +8,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import Po.User;
+
 import Util.HibernateUtil;
 import junit.framework.TestCase;
 public class TestCriteriaquery  extends TestCase{
@@ -59,16 +61,30 @@ public class TestCriteriaquery  extends TestCase{
 		}
 	}
 	*/
-	public void testQuery3(String name ,String password) {
+	//多条件查询
+	public void testQuery3() {
+		String name="%伟%";
+		String group="%佳宾%";
 		HibernateUtil util=HibernateUtil.getHibernateUtilInstance();
 		Session session=null;
 		try{
 			session=util.OpenSession();
-			Criteria c=session.createCriteria(User.class);
+			Criteria c=session.createCriteria(User.class,"u");
+			//关联查询
+			
+			
 			if(name!=null){
-				c.add(Restrictions.like("name",name));
+				c.add(Restrictions.like("u.name",name));
+			}
+			//为关联对象加条件
+			c.createCriteria("group","g");
+			if(group!=null){
+				c.add(Restrictions.like("g.name", group));
 			}
 			
+			/*
+			 * HQL：from User s where s.name like ‘%伟%’ and s.group.name like '%嘉宾%'；
+			 */
 			List list= c.list();
 			for(int i=0;i<list.size();i++){
 				User u=(User) list.get(i);

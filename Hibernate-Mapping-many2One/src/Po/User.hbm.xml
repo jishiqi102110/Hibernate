@@ -11,6 +11,29 @@
         <many-to-one name="group" foreign-key="fk_user_groupid_group_gid">
                  <column name="grou_id"></column>
         </many-to-one>
+        <filter name="TestQueryFilter" condition="name like :fname">
+        </filter>
    </class>
+   
+   <query name="TestNamedQuery">
+     <![CDATA[
+        select u from User u where u.id<9
+     ]]>
+   </query>
+    <query name="TestNamedQuery2">
+     <![CDATA[
+        select u from User u where u.id<?
+     ]]>
+   </query>
+     <sql-query name="TestNamedSQLQuery">
+     <![CDATA[
+        select * from t_user where uid<?
+     ]]>
+   </sql-query>
+   <!-- 条件是原生的表达式 -->
+   <!-- 定义filter要放在后面 -->
+    <filter-def name="TestQueryFilter">
+         <filter-param name="fname" type="string"/>
+    </filter-def>
 </hibernate-mapping>    
     
