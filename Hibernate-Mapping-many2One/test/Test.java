@@ -8,6 +8,7 @@ import Util.HibernateUtil;
 import junit.framework.TestCase;
 
 public class Test extends TestCase{
+	
 	public   void testSave(){
 		HibernateUtil util=HibernateUtil.getHibernateUtilInstance();
 		Session session=null;

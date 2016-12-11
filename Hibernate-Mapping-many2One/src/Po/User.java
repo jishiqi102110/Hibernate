@@ -5,6 +5,13 @@ public class User {
 	private String name;
 	private String password;
 	private Group group;
+	public User(){
+		
+	}
+	public User(int id,String name){
+		this.id=id;
+		this.name=name;
+	}
 	public int getId() {
 		return id;
 	}
