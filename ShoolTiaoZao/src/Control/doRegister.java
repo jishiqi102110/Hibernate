@@ -13,6 +13,8 @@ import com.sun.corba.se.spi.activation.Server;
 
 import Dao.addUser;
 import Dao.judgeUserExists;
+import Manager.IUserManager;
+import Manager.UserManagerImp;
 public class doRegister extends HttpServlet{
       @Override     
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,16 +34,26 @@ public class doRegister extends HttpServlet{
 			String email=req.getParameter("email");
 			if(password1.equals(password2)){	
 				addUser addu=new addUser();
-				addu.adduser(username, password1, tel,email, qq);
-				req.setAttribute("username",username);
-				req.setAttribute("password",password1);
-				req.getRequestDispatcher("login.jsp").forward(req, resp);//传递参数跳转到登录页面
+				//addu.adduser(username, password1, tel,email, qq);
+				//添加新用户
+				IUserManager manager=new UserManagerImp();
+				boolean flag= manager.addUser(username, password1, tel, email, qq);
+				if(flag){
+					req.setAttribute("username",username);
+					req.setAttribute("password",password1);
+					req.getRequestDispatcher("login.jsp").forward(req, resp);//传递参数跳转到登录页面
+				}
+				else{
+					//没添加成功
+					req.setAttribute("error","发生不可预知的错误！请重新申请一次！");
+					req.getRequestDispatcher("register.jsp").forward(req, resp);
+				}
 			}
 			else{
 				req.setAttribute("error","密码输入不一致！");
 				req.getRequestDispatcher("register.jsp").forward(req, resp);
 			}
-			//添加新用户
+			
 		}
 		else{
 			req.setAttribute("error","验证码输入不一致！");
