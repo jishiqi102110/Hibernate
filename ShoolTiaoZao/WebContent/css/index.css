@@ -1,0 +1,73 @@
+body{
+    padding: 0;
+}
+.header{
+    height: 150px;
+    padding:0;
+    margin-top: 0;
+    background: url("../images/logo.jpg") no-repeat left bottom;
+}
+.navbar.top{
+    min-height: 30px;
+}
+.container{
+    width: 80%;
+}
+.slideImage{
+    height: 400px;
+    background: #F8F8F8;
+    padding: 0;
+}
+#myFocus{
+    margin: 0;
+    width:100%; height:100%;
+}
+
+nav li{
+    position: relative;
+}
+.liHover{
+    border-left: #E7E7E7 1px solid;
+    border-top: #E7E7E7 1px solid;
+    border-right: #E7E7E7 1px solid;
+    border-bottom: #F8F8F8 2px dashed;
+    z-index: 3;
+}
+table td{
+    width: 120px;
+    color: red;
+    font-size: 15px;
+}
+nav li div{
+    position: absolute;
+    background:#F8F8F8;
+    height:240px;
+    width: 400px;
+    margin-top: 14px;
+    border: solid 1px #E7E7E7;
+    left: 0;
+    display: none;
+    z-index: 2;
+}
+.goodsList img{
+    width: 200px;
+    height:220px;
+    margin: 10px 10px;
+}
+.goodsList div{
+    height: 340px;
+    border-top: 1px #E7E7E7 solid;
+    border-bottom: 1px #E7E7E7 solid;
+}
+.goodsList div div{
+    height: 310px;
+    border: 1px #E7E7E7 solid;
+}
+
+.slide_right{
+    height:400px;
+}
+.footer{
+    height: 50px;
+    background: rgb(248,248,248);
+}
