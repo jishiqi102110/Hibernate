@@ -39,5 +39,26 @@ public class UserManagerImp implements IUserManager{
 		
 		return flag;
 	}
-
+	@Override
+	public int delUser(String userID) {
+		int flag=1;
+		try {
+			session=util.OpenSession();
+			tras=session.beginTransaction();
+			User u=(User) session.get(User.class, userID);
+			session.flush();
+			session.delete(u);
+			tras.commit();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				tras.rollback();
+				flag=0;
+			}
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return flag;
+	}
 }

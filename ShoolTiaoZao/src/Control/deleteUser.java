@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Dao.dodeleteUser;
+import Manager.IUserManager;
+import Manager.UserManagerImp;
 
 public class deleteUser extends HttpServlet {
     @Override
@@ -15,8 +17,10 @@ public class deleteUser extends HttpServlet {
     	// TODO Auto-generated method stub
         String userID=req.getParameter("userID");
         System.out.println("userID"+userID);
-        dodeleteUser delete=new  dodeleteUser();
-         System.out.println("删除条数："+delete.deleteuser(userID));
+        IUserManager manager=new UserManagerImp();
+        int flag= manager.delUser(userID);
+        //dodeleteUser delete=new  dodeleteUser();
+        System.out.println("删除条数："+flag);
          resp.sendRedirect("alluser.do");
     }
     @Override
