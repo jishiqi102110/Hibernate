@@ -12,13 +12,16 @@ import javax.swing.text.html.HTML;
 import Bean.User;
 import Dao.SearchGoodsOfUser;
 import Dao.getAllUser;
+import Manager.IUserManager;
+import Manager.UserManagerImp;
 
 public class searchAllUser extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     	// TODO Auto-generated method stub
-      getAllUser search=new getAllUser();
-  	 ConcurrentHashMap<User,String> map= (ConcurrentHashMap)search.getuser();
+     // getAllUser search=new getAllUser();
+    	IUserManager manager=new UserManagerImp();
+  	 ConcurrentHashMap<User,String> map= manager.getAlluser();
   	 req.setAttribute("user",map);
 	 req.getRequestDispatcher("userManager.jsp").forward(req, resp);
     }

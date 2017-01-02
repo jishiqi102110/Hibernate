@@ -1,5 +1,9 @@
 package Manager;
 
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -60,5 +64,28 @@ public class UserManagerImp implements IUserManager{
 			session.close();
 		}
 		return flag;
+	}
+	@Override
+	public ConcurrentHashMap<User, String> getAlluser() {
+		// TODO Auto-generated method stub	
+		ConcurrentHashMap<User, String> map=new ConcurrentHashMap<>();
+		try {
+			session=util.OpenSession();
+			tras=session.beginTransaction();
+			Query q=session.createQuery("from User ");
+			List<User> list=q.list();
+			for(User u: list){
+				map.put(u, u.getUserID());
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				tras.rollback();
+			}
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+		return map;
 	}
 }

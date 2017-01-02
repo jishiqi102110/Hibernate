@@ -21,6 +21,7 @@ public class loginFilter implements Filter {
     private String url2;
     private String url3;
     private String url4;
+    private String url5;
     private String reqURL=null;
 	@Override
 	public void destroy() {
@@ -45,14 +46,22 @@ public class loginFilter implements Filter {
 			//说明已经登录
 			chain.doFilter(request,response);
 		}
+		System.out.println(reqURL.endsWith(url5));
 		if(admin==null){
 			//如果是url，Url2,url3的话就去登录页面
-			if(reqURL.endsWith(url1)||reqURL.endsWith(url2)||reqURL.endsWith(url4)||reqURL.endsWith(url3)){
+			if(reqURL.endsWith(url1)||reqURL.endsWith(url2)||reqURL.endsWith(url4)||reqURL.endsWith(url3)||reqURL.endsWith(url5)){
 				request.setAttribute("error","不能执行该操作！请先登录！");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				if(reqURL.endsWith(url5)){
+					//如果是管理员登录则跳转到管理员登录页面
+					request.getRequestDispatcher("managerLogin.jsp").forward(request, response);
+				}
+				else{					
+					request.getRequestDispatcher("login.jsp").forward(request, response);
+				}
 			}
 			//如果没有登录但是是游客则不进行过滤
-			else{				
+			else{	
+				System.out.println(reqURL);
 				chain.doFilter(request,response);
 			}
 		}
@@ -65,6 +74,8 @@ public class loginFilter implements Filter {
 		this.url2="goodsIssue.jsp";
 	    this.url4="shopCart.jsp";
 	    this.url3="addCart.do";
+	    this.url5="alluser.do";
+	    
 	}
 
 }

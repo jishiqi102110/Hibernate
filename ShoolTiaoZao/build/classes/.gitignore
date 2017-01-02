@@ -1,4 +1,9 @@
 /Bean/
+/Control/
+/Dao/
+/Filter/
+/GoodsDisPlay/
 /Manager/
 /Test/
-/Control/
+/Util/
+/hibernate.cfg.xml

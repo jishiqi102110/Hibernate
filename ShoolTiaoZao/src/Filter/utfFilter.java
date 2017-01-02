@@ -39,6 +39,7 @@ public class utfFilter implements Filter {
         catch(Exception e){
         	request.setAttribute("exception", e);
         	request.getRequestDispatcher("error.jsp").forward(request, response);
+        	
         }
 	}
 
