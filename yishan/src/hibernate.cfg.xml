@@ -13,5 +13,6 @@
 	<!-- dialect 方言-进行翻译 -->
 	<property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 	<mapping resource="yishan/Po/User.hbm.xml"/>
+	<mapping resource="yishan/Po/Goods.hbm.xml"/>
 	</session-factory>
 </hibernate-configuration>

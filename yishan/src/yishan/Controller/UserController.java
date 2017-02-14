@@ -1,15 +1,24 @@
 package yishan.Controller;
 
+import java.awt.Image;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.fileupload.disk.DiskFileItem;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import yishan.Dao.UserDao;
+import yishan.Po.Goods;
 import yishan.Po.User;
 
 @Controller
@@ -95,5 +104,59 @@ public class UserController implements IUseController {
 				e.printStackTrace();
 			}
 		}
+	}
+	@RequestMapping("IssueGoods")
+	@Override
+	public String IssueGoods(@RequestParam CommonsMultipartFile file, Goods goods ,HttpSession session) {
+		// TODO Auto-generated method stub
+		if(file.isEmpty()){
+			return "redirect:IssueHeart.jsp?error=1";
+		}
+		 //判断是不是图片
+	    String fileName=file.getOriginalFilename();
+	    System.out.println(fileName);
+	    String ss=fileName.substring(fileName.indexOf('.')+1);
+	    String[] imageArrary={"bmp","dib","gif","jpg","jpeg","png","ico" };
+	    boolean flag=false;
+	    for(int i=0;i<imageArrary.length;i++){
+	    	if(ss.equals(imageArrary[i])){
+	    	    flag=true;
+	    	    break;
+	    	}
+	    }
+	    if(flag){
+	    	//如果是图片，将进行存储
+	    	String saveFileDir = "upload";
+			  String webRoot=session.getServletContext().getRealPath("/");//其中\表示项目的根
+				File saveDir = new File(webRoot+"//"+saveFileDir);
+				if(!saveDir.exists()) {
+					saveDir.mkdir();
+				}
+			System.out.println("saveDir: " + saveDir); 
+				try {
+					InputStream input=file.getInputStream();
+					
+					OutputStream os=new FileOutputStream(new File(saveDir,fileName));
+					int length=0;
+					byte[] buffer=new byte[400];
+				
+					while((length=input.read(buffer))!=-1){
+						os.write(buffer, 0, length);
+					}
+					os.close();
+					input.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+					return "redirect:IssueHeart.jsp?error=3";
+					
+				}
+		   
+	    }else{
+	    	return "redirect:IssueHeart.jsp?error=2";
+	    } 
+		  
+
+		return "index.jsp";
 	}
 }

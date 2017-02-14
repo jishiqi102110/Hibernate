@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="yishan.Po.Goods" table="goods">
+        <id name="id" column="goodsID">
+        <generator class="uuid"/>
+        </id>
+        <property name="name" column="goodsname"/>
+        <property name="type" column="type"/>
+        <property name="discription" column="discription"/>
+        <many-to-one name="user" foreign-key="fk_user_userid_user_userID">
+           <column name="userID"></column>
+        </many-to-one>
+   </class>
+</hibernate-mapping>    
+    
