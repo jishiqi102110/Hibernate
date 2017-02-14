@@ -54,6 +54,7 @@ function validateUsername(user) {
 </head>
 <body>
 <nav class="navbar navbar-default" style="list-style: none">
+   
     <div class="container-fluid">
         <li class="navbar-brand navbar-btn"><a href="index.jsp">首页</a></li>
         <li class="navbar-brand navbar-btn">2页</li>

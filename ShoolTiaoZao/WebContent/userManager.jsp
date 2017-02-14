@@ -27,9 +27,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-
-<body>
 ${error}
+<body>
+
 <nav class="navbar" style="background:#317EE6 ">
     <h1 style="text-align: center">跳蚤市场管理系统</h1>
 </nav>
