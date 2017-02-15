@@ -6,11 +6,26 @@ public class Goods {
 	private String type;
 	private String discription;
     private User user;
+    private String time;
+    private String pictureAddress;
     
+	public String getTime() {
+		return time;
+	}
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getPictureAddress() {
+		return pictureAddress;
+	}
+	public void setPictureAddress(String pictureAddress) {
+		this.pictureAddress = pictureAddress;
+	}
+	
 	@Override
 	public String toString() {
 		return "Goods [id=" + id + ", name=" + name + ", type=" + type + ", discription=" + discription + ", user="
-				+ user + "]";
+				+ user + ", time=" + time + ", pictureAddress=" + pictureAddress + "]";
 	}
 	public String getId() {
 		return id;

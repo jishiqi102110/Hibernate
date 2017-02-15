@@ -76,4 +76,11 @@ public class UserDao {
 		}
     	return true;
      }
+     public User getUserByName(String name){
+    	 String hql="from User as user where name=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",name);
+    	 User user=(User) query.list().get(0);
+    	 return user;
+     }
 }

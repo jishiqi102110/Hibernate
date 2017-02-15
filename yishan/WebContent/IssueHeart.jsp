@@ -28,6 +28,9 @@
 <c:when test="${param.error==3}">
     <div><font style="color: red; font-size: large">上传文件出错</font></div>
 </c:when>
+<c:when test="${param.error==4}">
+    <div><font style="color: red; font-size: large">服务器存储错误</font></div>
+</c:when>
 </c:choose>
 
 <div class="header" id="header">

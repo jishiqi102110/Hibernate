@@ -18,7 +18,12 @@
 </head>
 <body>
 <c:choose>
-      <c:when test="${param.msg==1}">
+      <c:when test="${loginmsg==1}">
+      <%
+      out.print("<script type='text/javascript'>alert('不能进行此操作，清先登录！');</script>");
+      %>
+      </c:when>
+       <c:when test="${param.msg==1}">
       <%
       out.print("<script type='text/javascript'>alert('恭喜你注册成功');</script>");
       %>

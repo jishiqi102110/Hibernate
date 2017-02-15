@@ -1,17 +1,19 @@
 package yishan.Controller;
 
-import java.awt.Image;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Random;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.fileupload.disk.DiskFileItem;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +22,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import yishan.Dao.UserDao;
 import yishan.Po.Goods;
 import yishan.Po.User;
+import yishan.Util.HibernateUtil;
+import yishan.Util.RandomName;
 
 @Controller
 public class UserController implements IUseController {
@@ -132,7 +136,7 @@ public class UserController implements IUseController {
 				if(!saveDir.exists()) {
 					saveDir.mkdir();
 				}
-			System.out.println("saveDir: " + saveDir); 
+			    System.out.println("saveDir: " + saveDir); 
 				try {
 					InputStream input=file.getInputStream();
 					
@@ -145,6 +149,40 @@ public class UserController implements IUseController {
 					}
 					os.close();
 					input.close();
+					//然后进行存储信息到数据库
+					HibernateUtil util=HibernateUtil.getHibernateUtil();
+					Session Hsession=null;
+					Transaction tras=null;
+					try {
+						
+						 Hsession=util.Openssion();
+						 tras=Hsession.beginTransaction();
+						User u=(User) session.getAttribute("user");
+					    //
+						System.out.println(u);
+						UserDao userdao=new UserDao();
+					    User u2=userdao.getUserByName(u.getName());
+					    goods.setUser(u2);
+					    System.out.println(fileName);
+						goods.setPictureAddress(saveFileDir+"/"+RandomName.getRandomName().append(fileName));
+						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+						goods.setTime(df.format(new Date()));
+						System.out.println(goods);
+						
+						Hsession.save(goods);
+						tras.commit();
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						if(tras!=null){
+							tras.rollback();
+						}
+						return "redirect:IssueHeart.jsp?error=4";//服务器存储错误
+						
+					}finally {
+						Hsession.close();
+					}
+					
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

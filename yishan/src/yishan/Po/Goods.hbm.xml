@@ -8,6 +8,8 @@
         </id>
         <property name="name" column="goodsname"/>
         <property name="type" column="type"/>
+        <property name="time" column="time"/>
+        <property name="pictureAddress" column="pictureAddress"/>        
         <property name="discription" column="discription"/>
         <many-to-one name="user" foreign-key="fk_user_userid_user_userID">
            <column name="userID"></column>
