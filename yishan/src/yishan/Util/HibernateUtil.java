@@ -2,7 +2,8 @@ package yishan.Util;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class HibernateUtil {
 	private static HibernateUtil instance;
@@ -14,7 +15,8 @@ public class HibernateUtil {
 		return instance;
 	}
       public HibernateUtil(){
-    	  factory =new Configuration().configure().buildSessionFactory();
+    	  BeanFactory beanfactory = new ClassPathXmlApplicationContext("applicationContext.xml");
+     	 factory= (SessionFactory) beanfactory.getBean("sessionFactory");
     	  
       }
       public Session Openssion(){

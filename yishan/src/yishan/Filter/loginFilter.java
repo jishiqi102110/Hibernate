@@ -34,8 +34,8 @@ public class loginFilter implements Filter {
 //		System.out.println("------------------");
 		String reqURI = req.getRequestURI();
 		String reqURL = req.getRequestURL().toString();
-		System.out.println("reqURI: " + reqURI);
-		System.out.println("reqURL: " + reqURL);
+		//System.out.println("reqURI: " + reqURI);
+		//System.out.println("reqURL: " + reqURL);
 		User admin = (User)session.getAttribute("user");//获取用户信息
 		if(admin!=null){
 			//说明已经登录

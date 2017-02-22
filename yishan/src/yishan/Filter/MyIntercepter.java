@@ -31,7 +31,7 @@ public class MyIntercepter implements HandlerInterceptor {
 		// TODO Auto-generated method stub
 		
 		
-		System.out.println("处理前");
+		//System.out.println("处理前");
 		return true;
 	}
 
