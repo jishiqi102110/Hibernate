@@ -7,10 +7,11 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import yishan.Po.Goods;
 import yishan.Po.User;
 import yishan.Util.HibernateUtil;
 
-public class UserDao {
+public class UserDao implements IUserDao{
 	 HibernateUtil util;
 	 Session session;
 	public UserDao(){
@@ -83,4 +84,13 @@ public class UserDao {
     	 User user=(User) query.list().get(0);
     	 return user;
      }
+	@Override
+	public List getUserGoods(User u) {
+		// TODO Auto-generated method stub
+		String hql="from Goods as goods where goods.user.name=:n ";
+		Query query=this.session.createQuery(hql);
+		query.setParameter("n",u.getName());
+		List<Goods> list=query.list();
+		return list;
+	}
 }

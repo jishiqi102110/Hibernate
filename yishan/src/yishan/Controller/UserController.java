@@ -7,8 +7,11 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -196,5 +199,16 @@ public class UserController implements IUseController {
 		  
 
 		return "index.jsp";
+	}
+	@RequestMapping("PersonalGoodsMagager")
+	@Override
+	public String PersonalGoodsManager(HttpSession session,HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		User u=(User) session.getAttribute("user");
+		UserDao userdao=new UserDao();
+		List<Goods> list=userdao.getUserGoods(u);
+		request.setAttribute("pgoods",list);
+		System.out.println(list.size());
+		return "forward:PersonGoodsManager.jsp";
 	}
 }

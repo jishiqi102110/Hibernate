@@ -17,7 +17,6 @@ public class HibernateUtil {
       public HibernateUtil(){
     	  BeanFactory beanfactory = new ClassPathXmlApplicationContext("applicationContext.xml");
      	 factory= (SessionFactory) beanfactory.getBean("sessionFactory");
-    	  
       }
       public Session Openssion(){
     	  return factory.openSession();

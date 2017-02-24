@@ -43,7 +43,7 @@
               <ul class="nav nav-pills" role="tablist">
                   <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
                   <li role="presentation"><a href="#">需求发布</a></li>
-                  <li role="presentation"><a href="#">物品管理</a></li>
+                  <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
                   <li role="presentation"><a href="#">交易过程</a></li>
                   <li role="presentation">
                       <div class="dropdown">

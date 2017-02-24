@@ -1,5 +1,6 @@
 package yishan.Controller; 
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -13,4 +14,5 @@ public interface IUseController {
     public String register(User user,String code,HttpSession session);
     public void ajaxUserExists(String name,HttpServletResponse response);
     public String IssueGoods(CommonsMultipartFile file,Goods goods ,HttpSession session);
+    public String PersonalGoodsManager(HttpSession session,HttpServletRequest request);
 }
