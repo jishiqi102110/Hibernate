@@ -135,6 +135,14 @@ public class UserController implements IUseController {
 	    	//如果是图片，将进行存储
 	    	String saveFileDir = "upload";
 			  String webRoot=session.getServletContext().getRealPath("/");//其中\表示项目的根
+			  System.out.println(webRoot);
+			  try {
+				System.out.println(Class.forName("yishan.Po.Goods").getResource("/").getPath());
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			  
 				File saveDir = new File(webRoot+"//"+saveFileDir);
 				if(!saveDir.exists()) {
 					saveDir.mkdir();
@@ -167,7 +175,9 @@ public class UserController implements IUseController {
 					    User u2=userdao.getUserByName(u.getName());
 					    goods.setUser(u2);
 					    System.out.println(fileName);
-						goods.setPictureAddress(saveFileDir+"/"+RandomName.getRandomName().append(fileName));
+					    //先不加自己加的名字					    
+					    //goods.setPictureAddress(saveFileDir+"/"+RandomName.getRandomName().append(fileName));
+						goods.setPictureAddress(saveFileDir+"/"+fileName);
 						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						goods.setTime(df.format(new Date()));
 						System.out.println(goods);

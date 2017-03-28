@@ -77,11 +77,13 @@
 			<div id="container">
 				<div class="row" style="border: medium; border-color: #2aabd2">
 				   <c:forEach items="${requestScope.pgoods}" var="goods">
-				   <div class="col-md-2 col-md-offset-1">
-						<img src="${goods.pictureAddress}" class="thumbnail"> <span
+				   <a href="PDetails.jsp?goods=${goods}">
+				    <div class="col-md-2 col-md-offset-1 thumbnail">
+						<img src="${goods.pictureAddress}" > <span
 							style="margin-left: 20px"><font style="color: red">${goods.name}</font></span><br>
 						<span style="margin-left: 20px"><font style="color: red">${goods.discription}</font></span><br>
 					</div>
+				   </a>
 				   </c:forEach>
 					
 				</div>

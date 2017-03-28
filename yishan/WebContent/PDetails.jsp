@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@page import="yishan.Po.Goods"%>    
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>  
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
@@ -100,17 +101,18 @@
 
     </div>
 </nav>
+<c:set var=${goods} value="g"></c:set>
 <div class="container">
     <div class="row" style="margin-top: 20px;height: 400px">
         <div class="col-md-5 col-md-offset-2" style="height: 400px">
-            <img src="images/zhongxin.jpg" class="thumbnail">
+            <img src="${requestScope.goods.pictureAddress}" class="thumbnail">
         </div>
         <div class="col-md-2">
             <div style="margin-top: 50px">
-                <span style="font-size: medium;color: #2b669a">物品名称：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物品描述：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">联系方式：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">交易状态：</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物品名称：${g.name}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物品描述：${requestScope.goods.discription}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">联系方式：${requestScope.goods.user.tel}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">交易状态：${requestScope.goods.discription}</span><span></span><br><br>
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
                         <div class="btn btn-lg btn-info">下架</div>

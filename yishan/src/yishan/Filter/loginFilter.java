@@ -57,6 +57,8 @@ public class loginFilter implements Filter {
 		// TODO Auto-generated method stub
 	    //this.url1="http://localhost:8080/ShoolTiaoZao/goodsIssue.jsp";
 		notAllowedList.add("IssueHeart.jsp");
+		notAllowedList.add("PersonalGoodsMagager.do");
+		
 	}
 
 }
