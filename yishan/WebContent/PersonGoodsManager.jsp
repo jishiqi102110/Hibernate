@@ -30,10 +30,10 @@
 			</div>
 			<div id="top-right">
 				<ul class="nav nav-pills" role="tablist">
-					<li role="presentation"><a href="#">浏览记录</a></li>
-					<li role="presentation"><a href="#">需求发布</a></li>
-					<li role="presentation"><a href="#">物品管理</a></li>
-					<li role="presentation"><a href="#">交易过程</a></li>
+					 <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
+                  <li role="presentation"><a href="#">需求发布</a></li>
+                  <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
+                  <li role="presentation"><a href="#">个人交易</a></li>
 					<li role="presentation">
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"
@@ -77,7 +77,7 @@
 			<div id="container">
 				<div class="row" style="border: medium; border-color: #2aabd2">
 				   <c:forEach items="${requestScope.pgoods}" var="goods">
-				   <a href="PDetails.jsp?goods=${goods}">
+				   <a href="PDetails.jsp?goodsname=${goods.name}&discription=${goods.discription}&tel=${goods.user.tel}&paddress=${goods.pictureAddress}&PID=${goods.id}">
 				    <div class="col-md-2 col-md-offset-1 thumbnail">
 						<img src="${goods.pictureAddress}" > <span
 							style="margin-left: 20px"><font style="color: red">${goods.name}</font></span><br>

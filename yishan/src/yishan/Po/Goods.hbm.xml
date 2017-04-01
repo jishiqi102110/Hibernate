@@ -11,6 +11,7 @@
         <property name="time" column="time"/>
         <property name="pictureAddress" column="pictureAddress"/>        
         <property name="discription" column="discription"/>
+        <property name="goodsState" column="goodsState"/>        
         <many-to-one name="user" foreign-key="fk_user_userid_user_userID">
            <column name="userID"></column>
         </many-to-one>

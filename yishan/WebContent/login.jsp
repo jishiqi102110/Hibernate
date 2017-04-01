@@ -85,7 +85,7 @@
                 <div class="form-group" align="center" style="margin-top: 100px">
                     <h4>不是易善网用户？</h4>
                     <p>还等什么，快来加入吧，和别人分享你的慈善物品吧</p>
-                    <a href="#">注册新用户</a>
+                    <a href="register.jsp">注册新用户</a>
                 </div>
             </form></div>
         </div>

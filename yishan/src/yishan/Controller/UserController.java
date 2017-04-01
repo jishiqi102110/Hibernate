@@ -24,6 +24,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import yishan.Dao.UserDao;
 import yishan.Po.Goods;
+import yishan.Po.GoodsState;
 import yishan.Po.User;
 import yishan.Util.HibernateUtil;
 import yishan.Util.RandomName;
@@ -180,6 +181,7 @@ public class UserController implements IUseController {
 						goods.setPictureAddress(saveFileDir+"/"+fileName);
 						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						goods.setTime(df.format(new Date()));
+						goods.setGoodsState("normal");
 						System.out.println(goods);
 						
 						Hsession.save(goods);
@@ -220,5 +222,20 @@ public class UserController implements IUseController {
 		request.setAttribute("pgoods",list);
 		System.out.println(list.size());
 		return "forward:PersonGoodsManager.jsp";
+	}
+	@RequestMapping("SearchGoods")
+	@Override
+	public String doSearch(HttpServletRequest request,String keyword) {
+		// TODO Auto-generated method stub
+		System.out.println(keyword);
+		UserDao userdao=new UserDao();
+		List<Goods> glist=userdao.getSearchGoods(keyword);
+		return null;
+	}
+	@Override
+	public String indexSearch(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+		return null;
 	}
 }

@@ -8,7 +8,14 @@ public class Goods {
     private User user;
     private String time;
     private String pictureAddress;
+    private String goodsState;
     
+	public String getGoodsState() {
+		return goodsState;
+	}
+	public void setGoodsState(String goodsState) {
+		this.goodsState = goodsState;
+	}
 	public String getTime() {
 		return time;
 	}
@@ -22,10 +29,11 @@ public class Goods {
 		this.pictureAddress = pictureAddress;
 	}
 	
+
 	@Override
 	public String toString() {
 		return "Goods [id=" + id + ", name=" + name + ", type=" + type + ", discription=" + discription + ", user="
-				+ user + ", time=" + time + ", pictureAddress=" + pictureAddress + "]";
+				+ user + ", time=" + time + ", pictureAddress=" + pictureAddress + ", goodsState=" + goodsState + "]";
 	}
 	public String getId() {
 		return id;

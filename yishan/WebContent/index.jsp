@@ -44,7 +44,7 @@
                   <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
                   <li role="presentation"><a href="#">需求发布</a></li>
                   <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
-                  <li role="presentation"><a href="#">交易过程</a></li>
+                  <li role="presentation"><a href="#">个人交易</a></li>
                   <li role="presentation">
                       <div class="dropdown">
                           <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -65,9 +65,9 @@
    <div id="header-bottom" class="row">
        <div id="logo" class="col-md-4 col-md-offset-1" ></div>
        <div id="sousou" class="col-md-4 col-md-offset-2">
-           <form class="form-horizontal" action="" method="post">
+           <form class="form-horizontal" action="SearchGoods.do" method="post">
                <div class="input-group">
-                   <input type="text" name="cond" class="form-control" style="border:#F52B00 2px solid" placeholder="Search for...">
+                   <input type="text" name="keyword" class="form-control" style="border:#F52B00 2px solid" placeholder="Search for...">
                    <span class="input-group-btn">
         <input class="btn btn-default btn-warning"  type="submit" value="搜索">
       </span>
@@ -108,7 +108,6 @@
                    <div>
                    </div></li>
            </ul>
-
        </div>
    </nav>
 <div id="container" >
@@ -146,10 +145,12 @@
             <div class="col-md-offset-10 col-md-1"><a><span style="color: red;font-size:larger">更多>></span></a></div>
         </div>
         <div class="col-md-3">
-           <img src="images/goods1.jpg" class="thumbnail">
+          <a>
+          <img src="images/goods1.jpg" class="thumbnail">
            <span class="btn ">日系小清新</span><br>
            <span class=" btn">真的是皮啊</span><br>
            <span class=" btn">穿对鞋子再出门</span>
+          </a>
        </div>
         <div class="col-md-3">
             <img src="images/goods1.jpg" class="thumbnail">

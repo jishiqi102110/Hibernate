@@ -93,4 +93,16 @@ public class UserDao implements IUserDao{
 		List<Goods> list=query.list();
 		return list;
 	}
+	@Override
+	public List getSearchGoods(String keyword) {
+		// TODO Auto-generated method stub
+		
+		String hql="from Goods as g where g.name like :name or g.type like :type or g.discription like :discription";
+		Query query=this.session.createQuery(hql);
+		query.setParameter("name", "%"+keyword+"%");
+		query.setParameter("type", "%"+keyword+"%");
+		query.setParameter("discription", "%"+keyword+"%");	
+		List<Goods> glist=query.list();
+		return glist;
+	}
 }

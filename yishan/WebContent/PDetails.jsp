@@ -31,10 +31,10 @@
         </div>
         <div id="top-right">
             <ul class="nav nav-pills" role="tablist">
-                <li role="presentation"><a href="#">浏览记录</a></li>
-                <li role="presentation"><a href="#">需求发布</a></li>
-                <li role="presentation"><a href="#">物品管理</a></li>
-                <li role="presentation"><a href="#">交易过程</a></li>
+                <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
+                  <li role="presentation"><a href="#">需求发布</a></li>
+                  <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
+                  <li role="presentation"><a href="#">个人交易</a></li>
                 <li role="presentation">
                     <div class="dropdown">
                         <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
@@ -101,18 +101,17 @@
 
     </div>
 </nav>
-<c:set var=${goods} value="g"></c:set>
 <div class="container">
     <div class="row" style="margin-top: 20px;height: 400px">
-        <div class="col-md-5 col-md-offset-2" style="height: 400px">
-            <img src="${requestScope.goods.pictureAddress}" class="thumbnail">
+        <div class="col-md-5 col-md-offset-2 thumbnail" style="height: 400px">
+            <img src="${param.paddress}">
         </div>
         <div class="col-md-2">
             <div style="margin-top: 50px">
-                <span style="font-size: medium;color: #2b669a">物品名称：${g.name}</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物品描述：${requestScope.goods.discription}</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">联系方式：${requestScope.goods.user.tel}</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">交易状态：${requestScope.goods.discription}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物品名称：${param.goodsname}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物品描述：${param.discription}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">联系方式：${param.tel}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">交易状态：${param.discription}</span><span></span><br><br>
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
                         <div class="btn btn-lg btn-info">下架</div>

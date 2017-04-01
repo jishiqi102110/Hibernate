@@ -15,4 +15,6 @@ public interface IUseController {
     public void ajaxUserExists(String name,HttpServletResponse response);
     public String IssueGoods(CommonsMultipartFile file,Goods goods ,HttpSession session);
     public String PersonalGoodsManager(HttpSession session,HttpServletRequest request);
+    public String doSearch(HttpServletRequest request,String keyword);
+    public String indexSearch(HttpServletRequest request);
 }
