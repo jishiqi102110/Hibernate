@@ -210,7 +210,7 @@ public class UserController implements IUseController {
 	    } 
 		  
 
-		return "index.jsp";
+		return "getAllGoods.do";
 	}
 	@RequestMapping("PersonalGoodsMagager")
 	@Override
@@ -230,12 +230,27 @@ public class UserController implements IUseController {
 		System.out.println(keyword);
 		UserDao userdao=new UserDao();
 		List<Goods> glist=userdao.getSearchGoods(keyword);
-		return null;
+		request.setAttribute("sgoods", glist);
+		return "forward:Searchpage.jsp";
 	}
+	@RequestMapping("getAllGoods")
 	@Override
 	public String indexSearch(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		
-		return null;
+		UserDao userdao=new UserDao();
+		List<Goods> goodList=userdao.getAllGoods();
+		request.setAttribute("goodList",goodList);
+		return "forward:index.jsp";
+	}
+	@RequestMapping("goodsDelet")
+	@Override
+	public String deleteGoods(HttpServletRequest request, String ID) {
+		// TODO Auto-generated method stub
+		UserDao userdao =new UserDao();
+		String result="";
+		if(userdao.deleteGoods(ID)){
+			result="forward:PersonalGoodsMagager.do";
+		}
+		return result;
 	}
 }

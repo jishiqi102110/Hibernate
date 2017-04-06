@@ -114,10 +114,10 @@
                 <span style="font-size: medium;color: #2b669a">交易状态：${param.discription}</span><span></span><br><br>
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info">下架</div>
+                        <div class="btn btn-lg btn-info"><a href="goodsDelet.do?PID=${param.PID }">下架</a></div>
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info">修改</div>
+                        <div class="btn btn-lg btn-info"><a href="goodsDelet.do?PID=${param.PID }">修改</a></div>
                     </div>
                 </div>
             </div>

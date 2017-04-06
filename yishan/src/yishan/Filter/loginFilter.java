@@ -37,6 +37,15 @@ public class loginFilter implements Filter {
 		//System.out.println("reqURI: " + reqURI);
 		//System.out.println("reqURL: " + reqURL);
 		User admin = (User)session.getAttribute("user");//获取用户信息
+		if(reqURL.indexOf("index.jsp")!=-1){
+			
+			if(req.getAttribute("goodList")==null){
+				req.getRequestDispatcher("getAllGoods.do").forward(req, resp);
+			}
+			else{
+				chain.doFilter(req, resp);
+			}
+		}
 		if(admin!=null){
 			//说明已经登录
 			chain.doFilter(request,response);

@@ -82,9 +82,9 @@
                     <select class="form-control" id="type" name="type">
                         <option>服装</option>
                         <option>家居</option>
-                        <option>交通工具</option>
-                        <option>4</option>
-                        <option>5</option>
+                        <option>交通</option>
+                        <option>书籍</option>
+                        <option>数码</option>
                     </select>
                 </div>
                 <div class="form-group">

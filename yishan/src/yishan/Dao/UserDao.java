@@ -103,6 +103,34 @@ public class UserDao implements IUserDao{
 		query.setParameter("type", "%"+keyword+"%");
 		query.setParameter("discription", "%"+keyword+"%");	
 		List<Goods> glist=query.list();
-		return glist;
+		return glist;	
+	}
+	@Override
+	public List getAllGoods() {
+		// TODO Auto-generated method stub
+		String hql="from Goods as g";
+		Query query=this.session.createQuery(hql);
+		List<Goods> goodsList=query.list();
+		return goodsList;
+	}
+	@Override
+	public boolean deleteGoods(String ID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try {
+				Goods goods=(Goods) session.get(Goods.class,ID);
+				session.delete(goods);
+				session.getTransaction().commit();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				 tras.rollback();
+				 return false;
+			}
+			e.printStackTrace();
+		}finally{
+			  session.close();
+		}
+		return true;
 	}
 }

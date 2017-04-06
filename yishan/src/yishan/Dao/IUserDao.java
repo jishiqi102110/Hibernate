@@ -11,4 +11,6 @@ public interface IUserDao {
 	public int  isExistsUser(User u);
 	public List getUserGoods(User u);
 	public List getSearchGoods(String keyword);
+	public List getAllGoods();
+	public boolean deleteGoods(String ID);
 }
