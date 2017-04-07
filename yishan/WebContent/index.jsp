@@ -174,9 +174,9 @@
 			<c:forEach items="${requestScope.goodList}" var="goods">
 				<div class="col-md-3 col-xs-6">
 					<a
-						href="PDetails.jsp?goodsname=${goods.name}&discription=${goods.discription}&tel=${goods.user.tel}&paddress=${goods.pictureAddress}&PID=${goods.id}"
+						href="Details.jsp?goodsname=${goods.name}&discription=${goods.discription}&tel=${goods.user.tel}&paddress=${goods.pictureAddress}&PID=${goods.id}&state=${goods.goodsState}"
 						class="thumbnail"> <img src="${goods.pictureAddress}" style="height: 220px; width: 220px">
-						<div >
+						<div>
 						 <span
 						class="btn ">${goods.name }</span><br> <span class=" btn">${goods.time }</span><br>
 						<span class=" btn">${goods.discription}</span>

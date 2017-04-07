@@ -43,7 +43,7 @@
  
     <div class="container-fluid" style="list-style: none">
         <ul>
-            <li class="navbar-brand navbar-btn" >首页</li>
+            <a href="index.jsp"><li class="navbar-brand navbar-btn" style="color: blue" >首页</li></a>
             <li class="navbar-brand navbar-btn" >1页</li>
             <li class="navbar-brand navbar-btn" >2页</li>
         </ul>
@@ -94,10 +94,6 @@
 <div class=panel-footer>
     <p style="text-align: center">版权所有</p>
 </div>
-<script>
-    var span= document.getElementById("span");
-    
-</script>
 </body>
 
 </html>

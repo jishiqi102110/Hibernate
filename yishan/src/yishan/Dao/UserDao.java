@@ -118,7 +118,7 @@ public class UserDao implements IUserDao{
 		// TODO Auto-generated method stub
 		Transaction tras=session.beginTransaction();
 		 try {
-				Goods goods=(Goods) session.get(Goods.class,ID);
+				Goods goods=(Goods) session.load(Goods.class,ID);
 				session.delete(goods);
 				session.getTransaction().commit();
 		} catch (HibernateException e) {

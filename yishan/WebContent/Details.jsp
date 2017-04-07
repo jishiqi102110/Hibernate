@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -24,7 +25,16 @@
             <ul class="nav nav-pills" role="tablist">
                 <li role="presentation" class="active"><a href="#">后台中心</a></li>
                 <li role="presentation"><a href="#">退出</a></li>
-                <li role="presentation"><a href="#">登录</a></li>
+               <c:choose>
+						<c:when test="${sessionScope.user!=null}">
+							<li role="presentation"><a href="login.jsp">欢迎你<font
+									style="color: red">${sessionScope.user.name}</font></a></li>
+						</c:when>
+						<c:otherwise>
+							<li role="presentation"><a href="login.jsp">登录</a></li>
+							<li role="presentation"><a href="register.jsp">注册</a></li>
+						</c:otherwise>
+					</c:choose>
             </ul>
         </div>
         <div id="top-right">
@@ -67,7 +77,7 @@
 <nav class=" navbar-default" style="list-style: none">
     <div class="container-fluid">
         <ul>
-            <li class="dropdown navbar-brand" style="margin-left:8%" id="shouye"><a href=""><i class="glyphicon glyphicon-home"></i>首页</a>
+            <li class="dropdown navbar-brand" style="margin-left:8%" id="shouye"><a href="index.jsp"><i class="glyphicon glyphicon-home"></i>首页</a>
                 <div>
                     <h4>服饰</h4>
                     <table border="0">
@@ -102,21 +112,34 @@
 <div class="container">
     <div class="row" style="margin-top: 20px;height: 400px">
         <div class="col-md-5 col-md-offset-2" style="height: 400px">
-            <img src="images/zhongxin.jpg" class="thumbnail">
+            <img src="${param.paddress}" class="thumbnail" style="height: 500px;width: 500px">
         </div>
-        <div class="col-md-2">
-            <div style="margin-top: 50px">
-                <span style="font-size: medium;color: #2b669a">物品名称：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物主姓名：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物主联系方式：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">交易状态：</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物品名称：</span><span></span><br><br>
+        <div class="col-md-4">
+            <div style="margin-top: 50px;margin-left: 50px">
+                <span style="font-size: medium;color: #2b669a">物品名称：${param.goodsname}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物主联系方式：${param.tel}</span><span></span><br><br>
+                <c:choose>
+                   <c:when test="${param.state=='normal'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：无人领取</span><span></span><br><br>
+                   </c:when>
+                 <c:when test="${param.state=='undone'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：有人领取</span><span></span><br><br>
+                   </c:when>
+                    <c:when test="${param.state=='done'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：物品已无效</span><span></span><br><br>
+                   </c:when>
+                
+                </c:choose>
+                
+                
+                <span style="font-size: medium;color: #2b669a">描述：${param.discription }</span><span></span><br><br>
+               
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
                         <div class="btn btn-lg btn-info">加入收藏夹</div>
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info">发起交易</div>
+                        <div class="btn btn-lg btn-info">发起认领</div>
                     </div>
                 </div>
             </div>

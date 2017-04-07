@@ -23,9 +23,19 @@
 		<div class="navbar-default" id="header-top">
 			<div id="top-left">
 				<ul class="nav nav-pills" role="tablist">
+				     <li role="presentation" class="active"><a href="index.jsp">首页</a></li>
 					<li role="presentation" class="active"><a href="#">后台中心</a></li>
 					<li role="presentation"><a href="#">退出</a></li>
-					<li role="presentation"><a href="#">登录</a></li>
+					<c:choose>
+						<c:when test="${sessionScope.user!=null}">
+							<li role="presentation"><a href="login.jsp">欢迎你<font
+									style="color: red">${sessionScope.user.name}</font></a></li>
+						</c:when>
+						<c:otherwise>
+							<li role="presentation"><a href="login.jsp">登录</a></li>
+							<li role="presentation"><a href="register.jsp">注册</a></li>
+						</c:otherwise>
+					</c:choose>
 				</ul>
 			</div>
 			<div id="top-right">
@@ -105,7 +115,6 @@
 			</div>
 		</c:otherwise>
 	</c:choose>
-
 	<div class=panel-footer>
 		<p style="text-align: center">版权所有</p>
 	</div>

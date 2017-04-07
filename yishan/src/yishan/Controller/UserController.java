@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
@@ -242,14 +243,16 @@ public class UserController implements IUseController {
 		request.setAttribute("goodList",goodList);
 		return "forward:index.jsp";
 	}
-	@RequestMapping("goodsDelet")
+	@RequestMapping("goodsDelet/{ID}")
 	@Override
-	public String deleteGoods(HttpServletRequest request, String ID) {
+	public String deleteGoods(HttpServletRequest request,@PathVariable String ID) {
 		// TODO Auto-generated method stub
+		System.out.println(ID);
 		UserDao userdao =new UserDao();
 		String result="";
+		
 		if(userdao.deleteGoods(ID)){
-			result="forward:PersonalGoodsMagager.do";
+			result="redirect:/PersonGoodsManager.jsp";
 		}
 		return result;
 	}

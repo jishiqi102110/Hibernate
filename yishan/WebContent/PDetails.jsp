@@ -26,7 +26,16 @@
             <ul class="nav nav-pills" role="tablist">
                 <li role="presentation" class="active"><a href="#">后台中心</a></li>
                 <li role="presentation"><a href="#">退出</a></li>
-                <li role="presentation"><a href="#">登录</a></li>
+               <c:choose>
+						<c:when test="${sessionScope.user!=null}">
+							<li role="presentation"><a href="login.jsp">欢迎你<font
+									style="color: red">${sessionScope.user.name}</font></a></li>
+						</c:when>
+						<c:otherwise>
+							<li role="presentation"><a href="login.jsp">登录</a></li>
+							<li role="presentation"><a href="register.jsp">注册</a></li>
+						</c:otherwise>
+					</c:choose>
             </ul>
         </div>
         <div id="top-right">
@@ -114,10 +123,10 @@
                 <span style="font-size: medium;color: #2b669a">交易状态：${param.discription}</span><span></span><br><br>
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info"><a href="goodsDelet.do?PID=${param.PID }">下架</a></div>
+                        <div class="btn btn-lg btn-info"><a href="goodsDelet/${param.PID }.do">下架</a></div>
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info"><a href="goodsDelet.do?PID=${param.PID }">修改</a></div>
+                        <div class="btn btn-lg btn-info"><a href="goodsDelet/${param.PID }.do">修改</a></div>
                     </div>
                 </div>
             </div>
