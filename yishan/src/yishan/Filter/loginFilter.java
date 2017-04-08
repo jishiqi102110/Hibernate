@@ -31,14 +31,9 @@ public class loginFilter implements Filter {
 		HttpServletRequest req = (HttpServletRequest)request;
 		HttpServletResponse resp = (HttpServletResponse)response;
 		HttpSession session = req.getSession();
-//		System.out.println("------------------");
-		String reqURI = req.getRequestURI();
 		String reqURL = req.getRequestURL().toString();
-		//System.out.println("reqURI: " + reqURI);
-		//System.out.println("reqURL: " + reqURL);
 		User admin = (User)session.getAttribute("user");//获取用户信息
-		if(reqURL.indexOf("index.jsp")!=-1){
-			
+		if(reqURL.indexOf("index.jsp")!=-1){	
 			if(req.getAttribute("goodList")==null){
 				req.getRequestDispatcher("getAllGoods.do").forward(req, resp);
 			}
@@ -46,28 +41,25 @@ public class loginFilter implements Filter {
 				chain.doFilter(req, resp);
 			}
 		}
-		if(admin!=null){
+		 if(admin!=null){
 			//说明已经登录
-			chain.doFilter(request,response);
+			chain.doFilter(req,resp);
 		}
-		if(admin==null){
+		 if(admin==null){
 			//如果是没授权的页面的话就去登录页面
 			for(int i=0;i<notAllowedList.size();i++){
 				if(reqURL.indexOf(notAllowedList.get(i))!=-1){
-					request.setAttribute("loginmsg","1");
-					request.getRequestDispatcher("login.jsp").forward(request, response);
+					resp.sendRedirect("login.jsp?loginmsg=1");
 				}
 			}
-			chain.doFilter(request,response);
 		}
+		 chain.doFilter(req, resp);
 	}
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
 		// TODO Auto-generated method stub
-	    //this.url1="http://localhost:8080/ShoolTiaoZao/goodsIssue.jsp";
 		notAllowedList.add("IssueHeart.jsp");
 		notAllowedList.add("PersonalGoodsMagager.do");
-		
+		notAllowedList.add("addFavorite");	
 	}
-
 }

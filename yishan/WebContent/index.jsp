@@ -37,13 +37,11 @@
 							<li role="presentation"><a href="register.jsp">注册</a></li>
 						</c:otherwise>
 					</c:choose>
-
-
-
 				</ul>
 			</div>
 			<div id="top-right">
-				<ul class="nav nav-pills" role="tablist">
+				<ul class="nav nav-pills" role="tablist">				    
+					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
 					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
 					<li role="presentation"><a href="#">需求发布</a></li>
 					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>

@@ -136,7 +136,8 @@
                
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info">加入收藏夹</div>
+                  
+                        <a href="addFavorite/${param.PID}/${param.goodsname}.do"><div class="btn btn-lg btn-info">加入收藏夹</div></a> 
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
                         <div class="btn btn-lg btn-info">发起认领</div>

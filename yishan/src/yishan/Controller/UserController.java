@@ -6,11 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -255,5 +258,28 @@ public class UserController implements IUseController {
 			result="redirect:/PersonGoodsManager.jsp";
 		}
 		return result;
+	}
+	@RequestMapping("addFavorite/{PID}/{goodsname}")
+	@Override
+	public String addFavorite(HttpServletRequest req,HttpSession session,@PathVariable String PID, @PathVariable String goodsname) {
+		// TODO Auto-generated method stub
+		Goods g=new Goods();
+    	//g.setDiscription(discription);
+    	//g.setGoodsState(state);
+    	//g.setId(PID);
+    	//g.setPictureAddress(paddress);
+    	//g.setGoodsState(goodsname);
+//	    if(session.getAttribute("favorite")==null){
+//	    	ConcurrentHashMap<Goods,String> favorites=new ConcurrentHashMap<>();	
+//         	favorites.put(g, PID);
+//	    	session.setAttribute("favorite", favorites);
+//	    }
+//	    else{
+//	    	ConcurrentHashMap<Goods,String> l=(ConcurrentHashMap<Goods,String>) session.getAttribute("favorite");
+//	    	session.setAttribute("favorite",l);
+//	    }
+	
+		return "forward:/index.jsp";
+		
 	}
 }

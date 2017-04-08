@@ -18,4 +18,6 @@ public interface IUseController {
     public String doSearch(HttpServletRequest request,String keyword);
     public String indexSearch(HttpServletRequest request);
     public String deleteGoods(HttpServletRequest request,String ID);
+    public String addFavorite(HttpServletRequest req, HttpSession session,String PID,String goodsname);
+
 }
