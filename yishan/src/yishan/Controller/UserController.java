@@ -42,6 +42,7 @@ public class UserController implements IUseController {
 		String scode=(String)session.getAttribute("validateCode");
 		System.out.println(scode);
 		String msg="";
+		
 		if(scode.toLowerCase().equals(code.toLowerCase())){
 			UserDao userdao=new UserDao();
 			if(userdao.isExistsUser(user)==3){

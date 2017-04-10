@@ -78,7 +78,7 @@
 <nav class=" navbar-default" style="list-style: none">
     <div class="container-fluid">
         <ul>
-            <li class="dropdown navbar-brand" style="margin-left:8%" id="shouye"><a href=""><i class="glyphicon glyphicon-home"></i>首页</a>
+            <li class="dropdown navbar-brand" style="margin-left:8%" id="shouye"><a href="index.jsp"><i class="glyphicon glyphicon-home"></i>首页</a>
                 <div>
                     <h4>服饰</h4>
                     <table border="0">
@@ -115,12 +115,23 @@
         <div class="col-md-5 col-md-offset-2 thumbnail" style="height: 400px">
             <img src="${param.paddress}">
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <div style="margin-top: 50px">
                 <span style="font-size: medium;color: #2b669a">物品名称：${param.goodsname}</span><span></span><br><br>
                 <span style="font-size: medium;color: #2b669a">物品描述：${param.discription}</span><span></span><br><br>
                 <span style="font-size: medium;color: #2b669a">联系方式：${param.tel}</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">交易状态：${param.discription}</span><span></span><br><br>
+               <c:choose>
+                   <c:when test="${param.state=='normal'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：无人领取</span><span></span><br><br>
+                   </c:when>
+                 <c:when test="${param.state=='undone'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：有人领取</span><span></span><br><br>
+                   </c:when>
+                    <c:when test="${param.state=='done'}">
+                   <span style="font-size: medium;color: #2b669a">交易状态：物品已无效</span><span></span><br><br>
+                   </c:when>
+                
+                </c:choose>
                 <div class="row">
                     <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
                         <div class="btn btn-lg btn-info"><a href="goodsDelet/${param.PID }.do">下架</a></div>

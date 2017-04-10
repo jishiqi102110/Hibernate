@@ -29,7 +29,7 @@
 					<li role="presentation"><a href="#">退出</a></li>
 					<c:choose>
 						<c:when test="${sessionScope.user!=null}">
-							<li role="presentation"><a href="login.jsp">欢迎你<font
+							<li role="presentation"><a href="login.jsp">欢迎你   <font
 									style="color: red">${sessionScope.user.name}</font></a></li>
 						</c:when>
 						<c:otherwise>

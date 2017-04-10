@@ -36,20 +36,24 @@ public class loginFilter implements Filter {
 		if(reqURL.indexOf("index.jsp")!=-1){	
 			if(req.getAttribute("goodList")==null){
 				req.getRequestDispatcher("getAllGoods.do").forward(req, resp);
+				return;
 			}
 			else{
 				chain.doFilter(req, resp);
+				return;//return 必须加，不然后面的代码会执行
 			}
 		}
 		 if(admin!=null){
 			//说明已经登录
 			chain.doFilter(req,resp);
+			return;
 		}
-		 if(admin==null){
+		 else if(admin==null){
 			//如果是没授权的页面的话就去登录页面
 			for(int i=0;i<notAllowedList.size();i++){
 				if(reqURL.indexOf(notAllowedList.get(i))!=-1){
 					resp.sendRedirect("login.jsp?loginmsg=1");
+					return;
 				}
 			}
 		}

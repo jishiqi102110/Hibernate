@@ -59,7 +59,7 @@
                 <form class="form-horizontal" methxod="post" action="login.do">
                     <div class="form-group">
                         <label for="exampleInputEmail1">用户名</label>
-                        <input   name="name" type="text" class="form-control" id="exampleInputEmail1" placeholder="UserName" required="required" value=${param.name} >
+                        <input name="name" type="text" class="form-control" id="exampleInputEmail1" placeholder="UserName" required="required"  >
                     </div>
                     <div class="form-group">
                         <label for="exampleInputEmail1">密码</label>
@@ -85,7 +85,7 @@
                 <div class="form-group" align="center" style="margin-top: 100px">
                     <h4>不是易善网用户？</h4>
                     <p>还等什么，快来加入吧，和别人分享你的慈善物品吧</p>
-                    <a href="../register.jsp">注册新用户</a>
+                    <a href="register.jsp">注册新用户</a>
                 </div>
             </form></div>
         </div>
