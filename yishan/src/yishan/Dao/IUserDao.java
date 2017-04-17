@@ -2,6 +2,7 @@ package yishan.Dao;
 
 import java.util.List;
 
+import yishan.Po.Goods;
 import yishan.Po.User;
 
 public interface IUserDao {
@@ -13,4 +14,5 @@ public interface IUserDao {
 	public List getSearchGoods(String keyword);
 	public List getAllGoods();
 	public boolean deleteGoods(String ID);
+	public Goods getGoodsbyID(String ID);
 }

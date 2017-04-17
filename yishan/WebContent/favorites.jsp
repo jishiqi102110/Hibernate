@@ -88,11 +88,11 @@
 			<div id="container">
 				<div class="row" style="border: medium; border-color: #2aabd2">
 				   <c:forEach items="${sessionScope.favorite}" var="goods">
-				   <a href="PDetails.jsp?goodsname=${goods.key.name}&discription=${goods.key.discription}&tel=${goods.key.user.tel}&paddress=${goods.key.pictureAddress}&PID=${goods.key.id}">
+				   <a href="Details.jsp?goodsname=${goods.name}&discription=${goods.discription}&tel=${goods.user.tel}&paddress=${goods.pictureAddress}&PID=${goods.id}&state=${goods.goodsState}">
 				    <div class="col-md-2 col-md-offset-1 thumbnail">
-						<img src="${goods.key.pictureAddress}" > <span
-							style="margin-left: 20px"><font style="color: red">${goods.key.name}</font></span><br>
-						<span style="margin-left: 20px"><font style="color: red">${goods.key.discription}</font></span><br>
+						<img src="${goods.pictureAddress}" > <span
+							style="margin-left: 20px"><font style="color: red">${goods.name}</font></span><br>
+						<span style="margin-left: 20px"><font style="color: red">${goods.discription}</font></span><br>
 					</div>
 				   </a>
 				   </c:forEach>

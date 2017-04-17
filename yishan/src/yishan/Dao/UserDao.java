@@ -118,7 +118,7 @@ public class UserDao implements IUserDao{
 		// TODO Auto-generated method stub
 		Transaction tras=session.beginTransaction();
 		 try {
-				Goods goods=(Goods) session.load(Goods.class,ID);
+				Goods goods=(Goods) session.get(Goods.class,ID);
 				session.delete(goods);
 				session.getTransaction().commit();
 		} catch (HibernateException e) {
@@ -132,6 +132,25 @@ public class UserDao implements IUserDao{
 			  session.close();
 		}
 		return true;
+	}
+	@Override
+	public Goods getGoodsbyID(String ID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		Goods g=null;
+		 try {
+				g=(Goods) session.get(Goods.class,ID);
+				session.getTransaction().commit();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				 tras.rollback();
+			}
+			e.printStackTrace();
+		}finally{
+			  session.close();
+		}
+		return g;
 	}
 	
 }

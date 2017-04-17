@@ -52,7 +52,7 @@ public class loginFilter implements Filter {
 			//如果是没授权的页面的话就去登录页面
 			for(int i=0;i<notAllowedList.size();i++){
 				if(reqURL.indexOf(notAllowedList.get(i))!=-1){
-					resp.sendRedirect("login.jsp?loginmsg=1");
+					resp.sendRedirect("../login.jsp?loginmsg=1");
 					return;
 				}
 			}
@@ -65,5 +65,6 @@ public class loginFilter implements Filter {
 		notAllowedList.add("IssueHeart.jsp");
 		notAllowedList.add("PersonalGoodsMagager.do");
 		notAllowedList.add("addFavorite");	
+		notAllowedList.add("favorites.jsp");
 	}
 }
