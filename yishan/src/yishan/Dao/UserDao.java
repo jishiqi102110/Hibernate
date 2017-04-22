@@ -1,14 +1,19 @@
 package yishan.Dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
+import yishan.Po.Deal;
 import yishan.Po.Goods;
 import yishan.Po.User;
+import yishan.Po.Vote;
 import yishan.Util.HibernateUtil;
 
 public class UserDao implements IUserDao{
@@ -63,6 +68,7 @@ public class UserDao implements IUserDao{
      public boolean register(User user){
     	 Transaction tras=session.beginTransaction();
     	 try {
+    		  user.setVote(0);
         	   session.save(user);
 			   tras.commit();
 		} catch (HibernateException e) {
@@ -151,6 +157,342 @@ public class UserDao implements IUserDao{
 			  session.close();
 		}
 		return g;
+	}
+	@Override
+	public User getUserByGoodsID(String GoodsID) {
+		// TODO Auto-generated method stub
+		 String hql="from Goods as g where g.id=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",GoodsID);
+         Goods goods=(Goods) query.list().get(0);
+    	 User user=goods.getUser();
+    	 return user;
+	}
+	@Override
+	public boolean saveDeal(Deal deal) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+    	 try {
+        	   session.save(deal);
+			   tras.commit();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				 tras.rollback();
+				 return false;
+			}
+			e.printStackTrace();
+		}finally{
+			  session.close();
+		}
+    	return true;
+	}
+	@Override
+	public boolean isExistDeal(String UserID, String GoodsID) {
+		// TODO Auto-generated method stub
+		 
+   	 String hql="from Deal as deal where getter=:n";
+   	 Query query= this.session.createQuery(hql);
+   	 query.setParameter("n",UserID);
+   	 int i=query.list().size();
+   	 List list=query.list();
+   	 if(i>0){
+   		//存在用户
+   		 for(int j=0;j<list.size();j++){
+   			 Object object=list.get(j);
+   			 Deal dd=(Deal)object;
+   			 if(dd.getGoodsID().equals(GoodsID)){
+   				 return false;//之前就存在该交易
+   			 }
+   		 }
+   	 }
+		return true;//之前未存在该交易
+	}
+	@Override
+	public List getALLDeal() {
+		// TODO Auto-generated method stub
+		 String hql="from Deal";
+		 Query query= this.session.createQuery(hql);
+	   	 int i=query.list().size();
+	   	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+			
+		return result;
+	}
+	@Override
+	public List getGoodsAllProperty(String type) {
+		// TODO Auto-generated method stub
+		 String hql="select p.property from goodsProperty as p,goodtype as t where t.typename=:n and p.typeid=t.id";
+		 Query query= this.session.createQuery(hql);
+	   	 query.setParameter("n",type);
+	   	 int i=query.list().size();
+	   	 ArrayList<String> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 String pp=(String) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+			
+		return list;
+	}
+	@Override
+	public List getAllVote() {
+		// TODO Auto-generated method stub
+		ArrayList<Vote> vot=new ArrayList<>();
+		for(int i=0;i<this.getAllUser().size();i++){
+			User u=(User) this.getAllUser().get(i);
+			ArrayList<String> goodsnames=new ArrayList<>();
+			List<Goods> pGoods=this.getUserGoods(u);
+			for(int j=0;j<pGoods.size();j++){
+				goodsnames.add(pGoods.get(j).getName());
+			}
+			Vote v=new Vote();
+			v.setUser(u);
+			v.setGoodsname(goodsnames);
+			vot.add(v);
+		}
+		return vot;
+	}
+	@Override
+	public List getAllUser() {
+		// TODO Auto-generated method stub
+		 String hql="from User";
+		 ArrayList<User> list=new ArrayList<>();
+    	 Query query= this.session.createQuery(hql);
+    	for(int i=0;i<query.list().size();i++){
+    		list.add((User) query.list().get(i));
+    	}    	
+    	 return list;
+	}
+	@Override
+	public void updataVote(String id,int vote) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update User user set user.vote=:n where user.id=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",vote);
+			 queryupdate.setParameter("m",id);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public List getUndoneDeal() {
+		// TODO Auto-generated method stub
+		 String hql="from Deal as deal where deal.state=:n";
+		 Query query= this.session.createQuery(hql);
+		 query.setParameter("n", "undone");
+	   	 int i=query.list().size();
+	   	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+			
+		return result;
+	}
+	@Override
+	public List getDoneDeal() {
+		// TODO Auto-generated method stub
+		 String hql="from Deal as deal where deal.state=:n";
+		 Query query= this.session.createQuery(hql);
+		 query.setParameter("n","done");
+	   	 int i=query.list().size();
+	   	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+			
+		return result;
+	}
+	@Override
+	public User getUserByID(String id) {
+		// TODO Auto-generated method stub
+		
+		 String hql="from User as user where user.id=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",id);
+    	 User user=(User) query.list().get(0);
+    	 return user;
+	}
+	@Override
+	public List getpersongetDeal(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Deal as d where d.getter=:n and d.state!=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","done");
+    	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public List getpersondisDeal(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Deal as d where d.distributor=:n and d.state!=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","done");
+    	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public void agree(String id) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update Deal d set d.state=:n where d.dealID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n","done");
+			 queryupdate.setParameter("m",id);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public void disagree(String id) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update Deal d set d.state=:n where d.dealID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n","disagree");
+			 queryupdate.setParameter("m",id);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public List getpersonagreeDeal(String userID) {
+		// TODO Auto-generated method stub
+		String hql="from Deal as d where d.getter=:n and d.state=:m";
+   	 Query query= this.session.createQuery(hql);
+   	 query.setParameter("n",userID);
+   	 query.setParameter("m","done");
+   	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public void evaluate(String dealid, String evaluate) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+		 try{
+			
+			 String hql="update Deal d set d.evaluate=:n where d.dealID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",evaluate);
+			 queryupdate.setParameter("m",dealid);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public void dianzan(String userid) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 
+			 int vote=this.getUserVote(userid)+1;
+			 String hql="update User u set u.vote=:m where u.id=:n";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",userid);
+			 queryupdate.setParameter("m",vote);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public int getUserVote(String userid) {
+		// TODO Auto-generated method stub
+		 String hql="from User as user where user.id=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userid);
+    	 User user=(User) query.list().get(0);
+    	 return user.getVote();
 	}
 	
 }

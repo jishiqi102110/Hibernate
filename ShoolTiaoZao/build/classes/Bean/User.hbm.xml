@@ -2,15 +2,15 @@
     "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <hibernate-mapping>
-   <class name="yishan.Po.User" table="user" lazy="false">
-        <id name="id" column="userID">
+   <class name="Bean.User" table="user">
+        <id name="userID" column="userID">
         <generator class="uuid"/>
         </id>
-        <property name="name" column="username"/>
+        <property name="username" column="username"/>
         <property name="password" column="password"/>
-        <property name="tel" column="tel"/>
+        <property name="phoneNumber" column="phoneNumber"/>
         <property name="email" column="email"/>
-        <property name="vote" column="vote"/>
+        <property name="qq" column="qq"/>
    </class>
 </hibernate-mapping>    
     

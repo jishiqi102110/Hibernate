@@ -112,37 +112,30 @@
 <div class="container">
     <div class="row" style="margin-top: 20px;height: 400px">
         <div class="col-md-5 col-md-offset-2" style="height: 400px">
-            <img src="${param.paddress}" class="thumbnail" style="height: 500px;width: 500px">
+            <img src="${param.pic}" class="thumbnail" style="height: 500px;width: 500px">
         </div>
         <div class="col-md-4">
             <div style="margin-top: 50px;margin-left: 50px">
-                <span style="font-size: medium;color: #2b669a">物品名称：${param.goodsname}</span><span></span><br><br>
-                <span style="font-size: medium;color: #2b669a">物主联系方式：${param.tel}</span><span></span><br><br>
-                <c:choose>
-                   <c:when test="${param.state=='normal'}">
-                   <span style="font-size: medium;color: #2b669a">交易状态：无人领取</span><span></span><br><br>
-                   </c:when>
-                 <c:when test="${param.state=='undone'}">
-                   <span style="font-size: medium;color: #2b669a">交易状态：有人领取</span><span></span><br><br>
-                   </c:when>
-                    <c:when test="${param.state=='done'}">
-                   <span style="font-size: medium;color: #2b669a">交易状态：物品已无效</span><span></span><br><br>
-                   </c:when>
-                
-                </c:choose>
-                
-                
-                <span style="font-size: medium;color: #2b669a">描述：${param.discription }</span><span></span><br><br>
-               
+                <span style="font-size: medium;color: #2b669a">物品名称：${param.goodname}</span><span></span><br><br>
+                <span style="font-size: medium;color: #2b669a">物主姓名：${param.disname}</span><span></span><br><br> 
+                <form action="eavluate.do">
                 <div class="row">
-                    <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
-                  
-                        <a href="addFavorite/${param.PID}/${param.goodsname}.do"><div class="btn btn-lg btn-info">加入收藏夹</div></a> 
+                    <div class="col-md-offset-1 col-md-9" style="margin-top: 40px;width: 500px;">
+                       <div class="form-group" >
+						<label for="discription">评价</label>
+						<input type="hidden" value="${param.dealid}" name="dealID">
+						<textarea class="form-control" rows="3" id="discription"
+							name="evaluate"></textarea><br>
+						<span><div class="form-group">
+                        <input type="submit" class="btn" value="提交">
+                    </div></span>	
+					   </div>
                     </div>
-                    <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
-                        <a href="getGoods.do?PID=${param.PID}&pic=${param.paddress}&goodsname=${param.goodsname}"><div class="btn btn-lg btn-info">发起认领</div></a>
-                    </div>
+                                     
                 </div>
+                </form>
+                
+                
             </div>
         </div>
     </div>

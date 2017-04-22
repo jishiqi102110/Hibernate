@@ -40,12 +40,13 @@
 				</ul>
 			</div>
 			<div id="top-right">
-				<ul class="nav nav-pills" role="tablist">				    
+				<ul class="nav nav-pills" role="tablist">							     	    
+					<li role="presentation"><a href="getDeal.do">所有交易</a></li>
 					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
 					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
 					<li role="presentation"><a href="#">需求发布</a></li>
 					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
-					<li role="presentation"><a href="#">个人交易</a></li>
+					<li role="presentation"><a href="ptrasaction.do">个人交易</a></li>
 					<li role="presentation">
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"
@@ -136,15 +137,18 @@
 	</nav>
 	<div id="container">
 		<div class="row">
-			<div id="jumu" class="col-md-8 jumbotron col-md-offset-1 container">
+		<a href="vote.do">
+		<div id="jumu" class="col-md-8 jumbotron col-md-offset-1 container">
+		       
 				<h2 style="text-indent: 2em">最美慈善人物</h2>
 				<p style="text-indent: 2em">...</p>
 				<p style="text-indent: 2em">...</p>
 				<p style="text-indent: 2em">...</p>
-				<p style="text-indent: 2em">
-					<a class="btn-lg btn-primary" href="#" role="button">Learn more</a>
-				</p>
-			</div>
+				<p style="text-indent: 2em"></p>
+			    <a class="btn-lg btn-primary" href="#" role="button">Learn more</a>
+			</div>	
+		</a>
+			
 			<div class="col-md-3">
 				<h1 style="color: #2aabd2; background-color: #090909">最新发布</h1>
 				<ul class="list-group">

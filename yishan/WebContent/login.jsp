@@ -56,7 +56,7 @@
         <div class="row" style="height:auto">
             <div class="col-md-3 col-md-offset-2">
                <h1>用户登录</h1>
-                <form class="form-horizontal" methxod="post" action="login.do">
+                <form class="form-horizontal" method="post" action="login.do">
                     <div class="form-group">
                         <label for="exampleInputEmail1">用户名</label>
                         <input name="name" type="text" class="form-control" id="exampleInputEmail1" placeholder="UserName" required="required"  >

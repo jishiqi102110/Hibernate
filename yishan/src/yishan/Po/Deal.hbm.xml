@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="yishan.Po.Deal" table="deal" lazy="false">
+        <id name="dealID" column="dealID">
+        <generator class="uuid"/>
+        </id>
+        <property name="goodsID" column="goodsID"/>
+        <property name="distributor" column="distributor"/>
+        <property name="getter" column="getter"/>
+        <property name="state" column="state"/>
+        <property name="evaluate" column="evaluate"/>
+        <property name="time" column="time"/>
+        <property name="pic" column="pic"/>
+        <property name="disname" column="disname"/>
+        <property name="getname" column="getname"/>
+        <property name="goodsname" column="goodsname"/>
+   </class>
+</hibernate-mapping>    
+    

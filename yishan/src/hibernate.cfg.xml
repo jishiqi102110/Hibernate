@@ -33,8 +33,14 @@
 		<!-- 配置哪些类的对象需要缓存 -->
 		<mapping resource="yishan/Po/User.hbm.xml" />
 		<mapping resource="yishan/Po/Goods.hbm.xml" />
+		<mapping resource="yishan/Po/Deal.hbm.xml" />
+		<mapping resource="yishan/Po/goodtype.hbm.xml" />
+		<mapping resource="yishan/Po/goodsProperty.hbm.xml" />
 		<!-- 设置成二级缓存主要是防止并发，以及脏数据的出现 -->
 	   <class-cache usage="read-write" class="yishan.Po.User" />
 	   <class-cache usage="read-write" class="yishan.Po.Goods" />
+	   <class-cache usage="read-write" class="yishan.Po.Deal" />
+	   <class-cache usage="read-write" class="yishan.Po.goodtype" />
+	   <class-cache usage="read-write" class="yishan.Po.goodsProperty" />
 	</session-factory>
 </hibernate-configuration>

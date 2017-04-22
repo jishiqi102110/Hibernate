@@ -16,10 +16,24 @@
     <script src="//cdn.bootcss.com/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
     <script src="//cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
+    
+<script type="text/javascript">
+$(document).on("change",'select#type',function(){
+	    $.post("type.do",{type:$(this).val()},function(data){
+	    	 var dataObj=eval("("+data+")");  
+	    	 var htmlnode='';
+	    	 $("#miaoshu").empty();
+	         for(var i=0;i<dataObj.length;i++){      
+	               htmlnode+="<span class='input-group-addon' id='basic-addon1'>"+dataObj[i]+"</span><input type='text' class='form-control' aria-describedby='basic-addon1'>"
+	         }  
+	         $("#miaoshu").append(htmlnode);
+	         
+	    });
+	 });
+</script>    
 </head>
 <body>
-
-
     <c:choose>
 		<c:when test="${param.error==1}">
 			<div>
@@ -110,13 +124,41 @@
 							<option>交通</option>
 							<option>书籍</option>
 							<option>数码</option>
+							<option>其他</option>
 						</select>
 					</div>
-					<div class="form-group">
+					<div class="form-group" >
 						<label for="discription">描述</label>
 						<textarea class="form-control" rows="3" id="discription"
 							name="discription"></textarea>
-					</div>
+					</div>	
+					
+					<div class="form-group" id="miaoshu" name="miaoshu">
+				         
+                        <span class="input-group-addon" id="basic-addon1">尺码</span>
+                        <input type="text" class="form-control" placeholder="large、small、middle...." aria-describedby="basic-addon1" name="尺码">
+                      
+             
+                        <span class="input-group-addon" id="basic-addon1">颜色</span>
+                        <input type="text" class="form-control"  aria-describedby="basic-addon1">
+                  
+                 
+                        <span class="input-group-addon" id="basic-addon1">面料</span>
+                        <input type="text" class="form-control"  aria-describedby="basic-addon1">
+                 
+                 
+                        <span class="input-group-addon" id="basic-addon1">适用对象</span>
+                        <input type="text" class="form-control"  aria-describedby="basic-addon1">
+                  
+                    
+                        <span class="input-group-addon" id="basic-addon1">品牌</span>
+                        <input type="text" class="form-control"  aria-describedby="basic-addon1">
+     
+                    
+					</div>	
+				        
+			
+	          	    
 					<div class="form-group">
 						<label for="exampleInputFile">上传图片</label> <input type="file"
 							id="exampleInputFile" name="file">
@@ -131,7 +173,5 @@
 	<div class=panel-footer>
 		<p style="text-align: center">版权所有</p>
 	</div>
-    
- 
 </body>
 </html>

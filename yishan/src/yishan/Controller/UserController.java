@@ -7,14 +7,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.Map;
 
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -27,12 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import net.sf.json.JSONArray;
 import yishan.Dao.UserDao;
+import yishan.Po.Deal;
 import yishan.Po.Goods;
-import yishan.Po.GoodsState;
 import yishan.Po.User;
+import yishan.Po.Vote;
 import yishan.Util.HibernateUtil;
-import yishan.Util.RandomName;
 
 @Controller
 public class UserController implements IUseController {
@@ -121,8 +122,11 @@ public class UserController implements IUseController {
 	}
 	@RequestMapping("IssueGoods")
 	@Override
-	public String IssueGoods(@RequestParam CommonsMultipartFile file, Goods goods ,HttpSession session) {
+	public String IssueGoods(@RequestParam CommonsMultipartFile file, Goods goods ,HttpSession session,HttpServletRequest req) {
 		// TODO Auto-generated method stub
+        
+		Object b=(Object)req.getParameter("miaoshu");
+		System.out.println(b+"23");
 		if(file.isEmpty()){
 			return "redirect:IssueHeart.jsp?error=1";
 		}
@@ -291,5 +295,138 @@ public class UserController implements IUseController {
 	    }
 		return "redirect:/favorites.jsp";
 		
+	}
+	@RequestMapping("getGoods")
+	@Override
+	public String getGoods(HttpServletRequest req, HttpSession ses) {//发起认领
+		// TODO Auto-generated method stub
+	    Deal deal=new Deal();	
+	    String gid=req.getParameter("PID");
+	    String pic=req.getParameter("pic");
+	    String gname=req.getParameter("goodsname");
+	    deal.setGoodsID(gid);
+	    deal.setGoodsname(gname);
+	    deal.setPic(pic);
+	    User u=(User) ses.getAttribute("user");
+	    UserDao userdao=new UserDao();
+	    User uu=userdao.getUserByName(u.getName());
+	    deal.setGetter(uu.getId());
+	    deal.setGetname(uu.getName());
+	    deal.setDistributor(userdao.getUserByGoodsID(gid).getId());
+	    deal.setDisname(userdao.getUserByGoodsID(gid).getName());
+	    deal.setState("undone");
+	    deal.setTime(new Date());
+	    if(userdao.isExistDeal(uu.getId(),gid)&&!uu.getId().equals(userdao.getUserByGoodsID(gid).getId())){	    	
+	    	userdao.saveDeal(deal);
+	    }  
+	    return "redirect:index.jsp";
+	}
+	@RequestMapping("getDeal")
+	@Override
+	public String getAllDeal(HttpServletRequest req) {
+		//TODO Auto-generated method stub
+	  UserDao userdao=new UserDao();
+	  ArrayList<Deal> doneDeal= (ArrayList<Deal>) userdao.getDoneDeal();
+	  ArrayList<Deal> undoneDeal= (ArrayList<Deal>) userdao.getUndoneDeal();
+	  req.setAttribute("done",doneDeal);
+	  req.setAttribute("undone",undoneDeal);
+	  return "TranScation.jsp";
+	}
+	@RequestMapping("type")
+	@Override
+	public void type(String type, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		UserDao userdao =new UserDao();
+		ArrayList<String> list= (ArrayList<String>) userdao.getGoodsAllProperty(type);
+		JSONArray jsonArray = JSONArray.fromObject(list);
+		try {
+			response.getWriter().print(jsonArray);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("vote")
+	@Override
+	public String vote(HttpServletRequest req) {
+		// TODO Auto-g enerated method stub
+	     UserDao userdao=new UserDao();
+	     ArrayList<Vote> vlist=new ArrayList<>();
+	     vlist=(ArrayList<Vote>) userdao.getAllVote();
+	     for(int i=0;i<vlist.size();i++){
+	    	 for(int j=i+1;j<vlist.size();j++){
+	    		 if(vlist.get(j).getUser().getVote()>vlist.get(i).getUser().getVote()){
+	    			  Collections.swap(vlist, i, j);
+	    		 }
+	    	 }
+	     }
+	     req.setAttribute("vote",vlist);
+		return "vote.jsp";
+	}
+	@RequestMapping("dovote")
+	@Override
+	public String dovote(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String userID=req.getParameter("userID");
+		int vote=Integer.parseInt(req.getParameter("vote"))+1;
+		UserDao userdao=new UserDao();
+		userdao.updataVote(userID, vote);
+		return "redirect:vote.do";
+	}
+	@RequestMapping("ptrasaction")
+	@Override
+	public String pTrasaction(HttpServletRequest req,HttpSession ses) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		ArrayList<Deal> get=new ArrayList<>();
+		ArrayList<Deal> dis=new ArrayList<>();		
+		ArrayList<Deal> age=new ArrayList<>();		
+		User u=(User) ses.getAttribute("user");
+		User uu=userdao.getUserByName(u.getName());
+		get=(ArrayList<Deal>) userdao.getpersongetDeal(uu.getId());
+		dis=(ArrayList<Deal>) userdao.getpersondisDeal(uu.getId());
+		age=(ArrayList<Deal>) userdao.getpersonagreeDeal(uu.getId());
+		req.setAttribute("get",get);
+		req.setAttribute("dis",dis);
+		req.setAttribute("age",age);
+		return "pTranScation.jsp";
+	}
+	@RequestMapping("agree")
+	@Override
+	public String aggree(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String dealID=req.getParameter("id");
+	    UserDao userdao=new UserDao();
+	    userdao.agree(dealID);
+		return "redirect:ptrasaction.do";
+	}
+	@RequestMapping("disagree")
+	@Override
+	public String disaggree(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String dealID=req.getParameter("id");
+	    UserDao userdao=new UserDao();
+	    userdao.disagree(dealID);
+		return "redirect:ptrasaction.do";
+	}
+	@RequestMapping("eavluate.do")
+	@Override
+	public String evaluate(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String dealID=req.getParameter("dealID");
+		String evaluate=req.getParameter("evaluate");
+		UserDao userdao=new UserDao();
+		userdao.evaluate(dealID, evaluate);
+		return "redirect:ptrasaction.do";
+	}
+	@RequestMapping("dianzan")
+	@Override
+	public String dianzan(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		String userid=req.getParameter("id");
+		
+		UserDao userdao=new UserDao();
+		userdao.dianzan(userid);
+		return "redirect:ptrasaction.do";
 	}
 }

@@ -12,7 +12,10 @@ public class testDao extends TestCase {
        u.setId("402859815a3f9740015a3f976a7c0000");
        
        dao.getUserGoods(u);
-       
-	   
    }
+   public void testgetUsers(){
+	   UserDao dao=new UserDao();
+	   System.out.println(dao.getAllUser().size()+"dsf");
+   }
+   
 }

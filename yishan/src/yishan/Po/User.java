@@ -6,7 +6,13 @@ public class User {
 	private String tel;
 	private String email;
 	private String id;
-	
+	private int vote;
+	public int getVote() {
+		return vote;
+	}
+	public void setVote(int vote) {
+		this.vote = vote;
+	}
 	public User(){
 		
 	}
