@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+   <class name="yishan.Po.Swap" table="swap" lazy="false">
+        <id name="swapID" column="swapID">
+        <generator class="uuid"/>
+        </id>
+        <property name="pic" column="pic"/>
+        <property name="dpic" column="dpic"/>
+        <property name="distributor" column="distributor"/>
+        <property name="getter" column="getter"/>
+        <property name="state" column="state"/>
+        <property name="evaluate" column="evaluate"/>
+        <property name="time" column="time"/>
+        <property name="disname" column="disname"/>
+        <property name="getname" column="getname"/>
+         <property name="disgname" column="disgname"/>
+        <property name="getgname" column="getgname"/>
+        <property name="getgID" column="getgID"/>
+        <property name="disgID" column="disgID"/>
+   </class>
+</hibernate-mapping>    
+    

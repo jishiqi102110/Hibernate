@@ -75,6 +75,7 @@ public class loginFilter implements Filter {
 		notAllowedList.add("favorites.jsp");
 		notAllowedList.add("getGoods");
 		notAllowedList.add("ptrasaction");
+		notAllowedList.add("swapgood");
 		
 	}
 }

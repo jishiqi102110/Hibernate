@@ -34,6 +34,7 @@
 		<mapping resource="yishan/Po/User.hbm.xml" />
 		<mapping resource="yishan/Po/Goods.hbm.xml" />
 		<mapping resource="yishan/Po/Deal.hbm.xml" />
+		<mapping resource="yishan/Po/Swap.hbm.xml" />
 		<mapping resource="yishan/Po/goodtype.hbm.xml" />
 		<mapping resource="yishan/Po/goodsProperty.hbm.xml" />
 		<!-- 设置成二级缓存主要是防止并发，以及脏数据的出现 -->

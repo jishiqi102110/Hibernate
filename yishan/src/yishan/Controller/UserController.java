@@ -31,6 +31,7 @@ import net.sf.json.JSONArray;
 import yishan.Dao.UserDao;
 import yishan.Po.Deal;
 import yishan.Po.Goods;
+import yishan.Po.Swap;
 import yishan.Po.User;
 import yishan.Po.Vote;
 import yishan.Util.HibernateUtil;
@@ -428,5 +429,81 @@ public class UserController implements IUseController {
 		UserDao userdao=new UserDao();
 		userdao.dianzan(userid);
 		return "redirect:ptrasaction.do";
+	}
+	@RequestMapping("swap")
+	@Override
+	public void swap(String username, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+     
+		UserDao userdao =new UserDao();
+		User u=new User();
+		u.setName(username);
+		ArrayList<Goods> list= (ArrayList<Goods>)userdao.getUserGoods(u);
+		System.out.println(list.size()+"dsfsefsef");
+		ArrayList<String> namelist= new ArrayList<>();
+		for(int i=0;i<list.size();i++){
+			namelist.add(list.get(i).getName());
+			
+		}
+		JSONArray jsonArray = JSONArray.fromObject(namelist);
+		try {
+			response.getWriter().print(jsonArray);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@RequestMapping("swapgood")
+	@Override
+	public String swapgood(String a, String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses) {
+		// TODO Auto-generated method stub
+		String  wantgname=a;//求购的物品名称
+		String  swapgname=b;//他人交换用的物品名称
+		String wantuname=c;//要交换的人的名字   	
+		User u=(User) ses.getAttribute("user");
+		UserDao userdao=new UserDao();
+		User uu=userdao.getUserByGoodsName(wantgname);
+		try {
+			
+			if(uu.getName().equals(u.getName())){
+				response.getWriter().print(false);
+				
+			}
+			else{//保存swap
+				Swap swap=new Swap();
+				swap.setDisgname(wantgname);
+				swap.setDisname(uu.getName());
+				swap.setDisgID(userdao.getGoodsbyGoodsName(wantgname).getId());
+			    swap.setDistributor(userdao.getUserByGoodsName(wantgname).getId());
+				swap.setGetgID(userdao.getGoodsbyGoodsName(swapgname).getId());
+				swap.setGetgname(swapgname);
+				swap.setGetname(wantuname);
+				swap.setGetter(userdao.getUserByName(wantuname).getId());
+				swap.setState("undone");
+				swap.setTime(new Date());
+				swap.setPic(userdao.getGoodsbyGoodsName(swapgname).getPictureAddress());
+				swap.setDpic(userdao.getGoodsbyGoodsName(wantgname).getPictureAddress());
+				boolean flag=userdao.saveSWap(swap);
+				if(flag){					
+					response.getWriter().print(true);
+					
+				}
+				else{
+					response.getWriter().print("error");
+					
+				}
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "index.jsp";
+	}
+	@RequestMapping("exit.do")
+	@Override
+	public String exit(HttpSession ses) {
+		// TODO Auto-generated method stub
+		ses.invalidate();
+		return "redirect:index.jsp";
 	}
 }

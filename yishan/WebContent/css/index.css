@@ -4,10 +4,10 @@ li{
 #top-left{
     float: left;
     margin-left: 130px;
-    width: 40%;
+    width: 30%;
 }
 #top-right{
-    width: 40%;
+    width: 55%;
     float: right;
 }
 #header-top{

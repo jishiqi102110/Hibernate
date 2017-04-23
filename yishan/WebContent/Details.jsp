@@ -17,6 +17,70 @@
     <script src="http://apps.bdimg.com/libs/html5shiv/3.7/html5shiv.min.js"></script>
     <script src="http://apps.bdimg.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script type="text/javascript">
+    $(document).ready(function() {
+    	$("#swap").click(function(){
+            var id = "${sessionScope.user.name}";
+            if(id==""){
+            	alert("清先进行登录");
+            	window.location.href="http://localhost:8080/yishan/login.jsp";
+            	return;
+            }
+    		$.post("swap.do",{username:id},function(data){
+    			var dataObj=eval("("+data+")");
+    			 var htmlnode='';
+    			 $("#gooddiv").show();
+    	    	 $("#good").empty();
+    	         for(var i=0;i<dataObj.length;i++){      
+    	               htmlnode+="<option>"+dataObj[i]+"</option>";
+    	         }  
+    	         $("#good").append(htmlnode);
+   	       });
+    	});
+    	
+    	$("#queren").click(function(){
+    	
+    		var wantgname="${param.goodsname}";//求购的物品名称
+    		var swapgname=$("#good").val();//他人交换用的物品名称
+    		var wantuname=${sessionScope.user.name}//要交换的人的名字   
+    		  $.ajax({ 
+    		       type:'get', 
+    		       url:'http://localhost:8080/yishan/swapgood.do', 
+    		       beforeSend:function(XMLHttpRequest){ 
+    		         //ShowLoading(); 
+    		       }, 
+    		       dataType: "json",
+    		          data: {
+    		            "a":wantgname,
+    		            "b":swapgname,
+    		            "c":wantuname,
+    		            },
+    		       success:function(data){ 
+    		        
+    		        if(data==false){
+    		        	alert("您不能交换自己的物品!");
+    		        }
+    		        if(data=="error"){
+    		        	alert("服务器忙，请稍后再试！");
+    		        }
+    		       }, 
+    		       complete:function(XMLHttpRequest,textStatus){ 
+    		         //HideLoading(); 
+    		           alert("请求已发送给物主");
+    		           window.location.href="http://localhost:8080/yishan/index.jsp";
+    		       }, 
+    		       error:function(){ 
+    		         //请求出错处理 
+    		        
+    		       } 
+    		     });
+    	});
+
+    }); 
+   
+    </script>
+    
+    
 </head>
 <body>
 <div class="header" id="header">
@@ -141,6 +205,28 @@
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
                         <a href="getGoods.do?PID=${param.PID}&pic=${param.paddress}&goodsname=${param.goodsname}"><div class="btn btn-lg btn-info">发起认领</div></a>
+                    </div>
+                </div>
+                  <div class="row">
+                    <div class="col-md-offset-1 col-md-2" style="margin-top: 40px">
+                       <a><div class="btn btn-lg btn-info"><span id="swap">物易物<span></div></a>
+                    </div>
+                </div>
+                 <div class="row">   
+                      <div class="col-md-7 col-md-offset-1" style="margin-top: 40px;display: none;" id="gooddiv" >
+                       <div class="form-group"  >
+						 <select class="form-control"
+							id="good" name="good">
+							<option>服装</option>
+							<option>家居</option>
+							<option>交通</option>
+							<option>书籍</option>
+							<option>数码</option>
+							<option>其他</option>
+						</select>
+						<label for="type" style="margin-left: 5px;">选择要交换的物品</label><br><br>
+						<button id="queren">确认</button>
+					</div>
                     </div>
                 </div>
             </div>

@@ -12,6 +12,7 @@ import org.hibernate.Transaction;
 
 import yishan.Po.Deal;
 import yishan.Po.Goods;
+import yishan.Po.Swap;
 import yishan.Po.User;
 import yishan.Po.Vote;
 import yishan.Util.HibernateUtil;
@@ -493,6 +494,44 @@ public class UserDao implements IUserDao{
     	 query.setParameter("n",userid);
     	 User user=(User) query.list().get(0);
     	 return user.getVote();
+	}
+	@Override
+	public User getUserByGoodsName(String GoodsName) {
+		// TODO Auto-generated method stub
+		 String hql="from Goods as g where g.name=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",GoodsName);
+         Goods goods=(Goods) query.list().get(0);
+    	 User user=goods.getUser();
+    	 return user;
+	}
+	@Override
+	public Goods getGoodsbyGoodsName(String Goodsname) {
+		// TODO Auto-generated method stub
+		 String hql="from Goods as g where g.name=:n";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",Goodsname);
+    	 Goods g=(Goods) query.list().get(0);
+    	 return g;
+	}
+	@Override
+	public boolean saveSWap(Swap swap) {
+		// TODO Auto-generated method stub
+		 Transaction tras=session.beginTransaction();
+    	 try {
+        	   session.save(swap);
+			   tras.commit();
+		} catch (HibernateException e) {
+			// TODO Auto-generated catch block
+			if(tras!=null){
+				 tras.rollback();
+				 return false;
+			}
+			e.printStackTrace();
+		}finally{
+			  session.close();
+		}
+    	return true;
 	}
 	
 }

@@ -29,5 +29,8 @@ public interface IUseController {
     public String disaggree(HttpServletRequest req);
     public String evaluate(HttpServletRequest req);
     public String dianzan(HttpServletRequest req);    
+    public String exit(HttpSession ses);    
+    public void swap(String username,HttpServletResponse response);
+    public String swapgood(String a,String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses);
     
 }

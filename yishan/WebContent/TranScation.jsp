@@ -82,13 +82,11 @@
         <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物主</font></div>
         <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
           </c:if>
-       
         <br> 
          <c:forEach items="${requestScope.undone}" var="u">
         <div style="height: 220px;margin-top: 20px;border:#E7E7E7 1px solid;">
          <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
             <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 190px;width: 190px">
-
         </div>
         <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.disname }</font></div></div>
         <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.getname }</font></div></div>

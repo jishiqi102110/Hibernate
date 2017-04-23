@@ -5,6 +5,7 @@ import java.util.Map;
 
 import yishan.Po.Deal;
 import yishan.Po.Goods;
+import yishan.Po.Swap;
 import yishan.Po.User;
 
 public interface IUserDao {
@@ -18,7 +19,9 @@ public interface IUserDao {
 	public boolean deleteGoods(String ID);
 	public Goods getGoodsbyID(String ID);
 	public User getUserByGoodsID(String GoodsID);
+	public User getUserByGoodsName(String GoodsName);
 	public boolean saveDeal(Deal deal);
+	public boolean saveSWap(Swap swap);
 	public boolean isExistDeal(String UserID,String GoodsID);
 	public List getALLDeal();//得到所有交易
 	public List getUndoneDeal();//得到未完成交易
@@ -36,5 +39,6 @@ public interface IUserDao {
 	public void evaluate(String dealid,String evaluate);
 	public void dianzan(String userid);
 	public int getUserVote(String userid);
+	public Goods getGoodsbyGoodsName(String Goodsname);
 	
 }
