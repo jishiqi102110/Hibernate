@@ -39,15 +39,17 @@
     	});
     	
     	$("#queren").click(function(){
-    	
+    	    alert(1);
     		var wantgname="${param.goodsname}";//求购的物品名称
     		var swapgname=$("#good").val();//他人交换用的物品名称
-    		var wantuname=${sessionScope.user.name}//要交换的人的名字   
+    		var wantuname="${sessionScope.user.name}"//要交换的人的名字
+    		alert(wantuname);
+    		alert
     		  $.ajax({ 
     		       type:'get', 
     		       url:'http://localhost:8080/yishan/swapgood.do', 
     		       beforeSend:function(XMLHttpRequest){ 
-    		         //ShowLoading(); 
+    		        
     		       }, 
     		       dataType: "json",
     		          data: {
@@ -55,23 +57,25 @@
     		            "b":swapgname,
     		            "c":wantuname,
     		            },
-    		       success:function(data){ 
-    		        
-    		        if(data==false){
-    		        	alert("您不能交换自己的物品!");
-    		        }
-    		        if(data=="error"){
-    		        	alert("服务器忙，请稍后再试！");
-    		        }
+    		       success:function(data){   
+    		    	   if(data==false){
+    		    		   alert("请求错误，不能交换自己的物品或者您已请求过该交换");
+    		    	   }
+    		    	   else{
+    		    		   alert("请求已发送！");
+    		    		   window.location.href="http://localhost:8080/yishan/index.jsp";
+    		    	   }
+      		       
     		       }, 
     		       complete:function(XMLHttpRequest,textStatus){ 
     		         //HideLoading(); 
-    		           alert("请求已发送给物主");
-    		           window.location.href="http://localhost:8080/yishan/index.jsp";
+    		      
     		       }, 
+    		       
     		       error:function(){ 
     		         //请求出错处理 
-    		        
+    		    	     alert("服务器忙，请稍后再试！");
+    
     		       } 
     		     });
     	});

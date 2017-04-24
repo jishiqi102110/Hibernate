@@ -455,7 +455,7 @@ public class UserController implements IUseController {
 	}
 	@RequestMapping("swapgood")
 	@Override
-	public String swapgood(String a, String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses) {
+	public void swapgood(String a, String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses) {
 		// TODO Auto-generated method stub
 		String  wantgname=a;//求购的物品名称
 		String  swapgname=b;//他人交换用的物品名称
@@ -464,10 +464,9 @@ public class UserController implements IUseController {
 		UserDao userdao=new UserDao();
 		User uu=userdao.getUserByGoodsName(wantgname);
 		try {
-			
-			if(uu.getName().equals(u.getName())){
+			boolean isexistSwap=userdao.isexistSwap(userdao.getGoodsbyGoodsName(wantgname).getId(), userdao.getGoodsbyGoodsName(swapgname).getId());
+			if(uu.getName().equals(wantuname)|| isexistSwap){
 				response.getWriter().print(false);
-				
 			}
 			else{//保存swap
 				Swap swap=new Swap();
@@ -486,10 +485,9 @@ public class UserController implements IUseController {
 				boolean flag=userdao.saveSWap(swap);
 				if(flag){					
 					response.getWriter().print(true);
-					
 				}
 				else{
-					response.getWriter().print("error");
+					response.getWriter().print(false);
 					
 				}
 			}
@@ -497,7 +495,6 @@ public class UserController implements IUseController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "index.jsp";
 	}
 	@RequestMapping("exit.do")
 	@Override
@@ -505,5 +502,74 @@ public class UserController implements IUseController {
 		// TODO Auto-generated method stub
 		ses.invalidate();
 		return "redirect:index.jsp";
+	}
+	@RequestMapping("allSwap")
+	@Override
+	public String getAllSwap(HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		ArrayList<Swap> done=new ArrayList<>();
+		ArrayList<Swap> undone=new ArrayList<>();	
+		done=(ArrayList<Swap>) userdao.getDoneSwap();
+		undone=(ArrayList<Swap>) userdao.getUndoneSwap();
+		
+		req.setAttribute("done", done);
+		req.setAttribute("undone", undone);
+		return "Swap.jsp";
+	}
+	@RequestMapping("pSwap")
+	@Override
+	public String getpAllSwap(HttpServletRequest req,HttpSession ses) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		ArrayList<Swap> done=new ArrayList<>();
+		ArrayList<Swap> get=new ArrayList<>();	
+		ArrayList<Swap> dis=new ArrayList<>();
+		ArrayList<Swap> disagree=new ArrayList<>();		
+		User u=(User) ses.getAttribute("user");
+		User uu=userdao.getUserByName(u.getName());
+		done=(ArrayList<Swap>) userdao.getpdoneSwap(uu.getId());
+		get=(ArrayList<Swap>) userdao.getpgetundoneSwap(uu.getId());
+		dis=(ArrayList<Swap>) userdao.getpdisundoneSwap(uu.getId());
+		disagree=(ArrayList<Swap>) userdao.getDisagreeSwap(uu.getId());
+		req.setAttribute("done", done);
+		req.setAttribute("dis", dis);
+		req.setAttribute("get", get);
+		req.setAttribute("disagree",disagree);
+		return "pSwap.jsp";
+	}
+	@RequestMapping("deletSwap")
+	@Override
+	public String deletSwap(String swapID) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		
+		userdao.deleteSwap(swapID);
+		return "redirect:pSwap.do";
+	}
+	@RequestMapping("agreeSwap")
+	@Override
+	public String agreeSwap(String swapID) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		userdao.agreeSwap(swapID);
+		return "redirect:pSwap.do";
+	}
+	@RequestMapping("disagreeSwap")
+	@Override
+	public String disagreeSwap(String swapID) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		userdao.disAgreeSwap(swapID);
+		return "redirect:pSwap.do";
+	}
+	@RequestMapping("evaluateSwap")
+	@Override
+	public String evaluateSwap(HttpServletRequest req,String swapID,String evaluate) {
+		// TODO Auto-generated method stub
+		
+		UserDao userdao=new UserDao();
+		userdao.EvaluateSwap(swapID, evaluate);
+		return "redirect:pSwap.do";
 	}
 }

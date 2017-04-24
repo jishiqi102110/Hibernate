@@ -41,14 +41,14 @@
 			</div>
 			<div id="top-right">
 				<ul class="nav nav-pills" role="tablist">							     	    
-					<li role="presentation"><a href="getDeal.do">所有物易物</a></li>
+					<li role="presentation"><a href="allSwap.do">所有物易物</a></li>
 					<li role="presentation"><a href="getDeal.do">所有认领</a></li>
 					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
 					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
 					<li role="presentation"><a href="#">需求发布</a></li>
 					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
 					<li role="presentation"><a href="ptrasaction.do">个人认领</a></li>
-					<li role="presentation"><a href="ptrasaction.do">个人物易物</a></li>
+					<li role="presentation"><a href="pSwap.do">个人物易物</a></li>
 					<li role="presentation">
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"

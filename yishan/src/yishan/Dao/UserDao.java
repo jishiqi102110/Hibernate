@@ -533,5 +533,215 @@ public class UserDao implements IUserDao{
 		}
     	return true;
 	}
+	@Override
+	public boolean isexistSwap(String disgID, String getgID) {
+		// TODO Auto-generated method stub
+		String hql="from Swap as s where s.disgID=:n and s.getgID=:m";
+	   	 Query query= this.session.createQuery(hql);
+	   	 query.setParameter("n",disgID);
+	   	 query.setParameter("m",getgID);
+	   	 int i=query.list().size();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在交换
+	   		 return true;
+	   	 }
+		return false;
+	}
+
+	@Override
+	public List getDoneSwap() {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.state=:n";
+		 Query query= this.session.createQuery(hql);
+		 query.setParameter("n", "done");
+	   	 int i=query.list().size();
+	   	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+			
+		return result;
+	}
+	@Override
+	public List getUndoneSwap() {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.state=:n";
+		 Query query= this.session.createQuery(hql);
+		 query.setParameter("n", "undone");
+	   	 int i=query.list().size();
+	   	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			 result.add(pp);
+	   		 }
+	   	 }
+		return result;
+	}
+	@Override
+	public List getpgetundoneSwap(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.getter=:n and s.state=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","undone");
+    	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+		
+	
+	}
+	@Override
+	public List getpdisundoneSwap(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.distributor=:n and s.state=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","undone");
+    	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+		
+	}
+	@Override
+	public List getpdoneSwap(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.getter=:n and s.state=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","done");
+    	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public void deleteSwap(String SwapID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="delete Swap as s  where s.swapID=:n";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",SwapID);
+			 queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public void agreeSwap(String SwapID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update Swap s set s.state=:n where s.swapID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n","done");
+			 queryupdate.setParameter("m",SwapID);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public void disAgreeSwap(String SwapID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update Swap s set s.state=:n where s.swapID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n","disagree");
+			 queryupdate.setParameter("m",SwapID);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public List getDisagreeSwap(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Swap as s where s.getter=:n and s.state=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","disagree");
+    	 ArrayList<Swap> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Swap pp=(Swap) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public void EvaluateSwap(String SwapID, String evaluate) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="update Swap s set s.evaluate=:n where s.swapID=:m";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",evaluate);
+			 queryupdate.setParameter("m",SwapID);
+			 int ret=queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	
 	
 }

@@ -31,6 +31,11 @@ public interface IUseController {
     public String dianzan(HttpServletRequest req);    
     public String exit(HttpSession ses);    
     public void swap(String username,HttpServletResponse response);
-    public String swapgood(String a,String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses);
-    
+    public void swapgood(String a,String b,String c,HttpServletResponse response,HttpServletRequest req,HttpSession ses);
+    public String getAllSwap(HttpServletRequest req);
+    public String getpAllSwap(HttpServletRequest req,HttpSession ses);
+    public String deletSwap(String swapID);
+    public String agreeSwap(String swapID);
+    public String disagreeSwap(String swapID);
+    public String evaluateSwap(HttpServletRequest req,String swapID,String evaluate);
 }

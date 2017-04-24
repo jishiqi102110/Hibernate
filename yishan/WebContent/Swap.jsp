@@ -69,28 +69,34 @@
          <img src="images/logo.jpg">
      </div>
     <div class="col-md-2 col-md-offset-6" style="margin-top: 10px">
-        <h1 style="color: #AAD42C">个人物品认领状态</h1>
+        <h1 style="color: #AAD42C">物品交换状态</h1>
     </div>
 </div>
 <hr style="height:5px;border:none;border-top:5px ridge green;"/>
 <div id="container">
     <div class="row" id="undone">
-        <h2 style="margin-left: 50px">我的认领</h2>
-          <c:if test="${requestScope.get!=null && fn:length(requestScope.get) != 0}">
-           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物品图片</font></div>
-        <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物主</font></div>
-        <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
+        <h2 style="margin-left: 50px">未完成的交换</h2>
+          <c:if test="${requestScope.undone!=null && fn:length(requestScope.undone) != 0}">
+           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">交换用物品</font></div>
+           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物主物品</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">交换者</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">物主</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
           </c:if>
-       
         <br> 
-         <c:forEach items="${requestScope.get}" var="u">
+         <c:forEach items="${requestScope.undone}" var="u">
         <div style="height: 220px;margin-top: 20px;border:#E7E7E7 1px solid;">
          <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
-            <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 190px;width: 190px">
-
+            <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 160px;width: 160px">
+            <span style="margin-bottom: 5px;">物品名称：${u.getgname }</span>
         </div>
+         <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
+            <img src="${u.dpic }" class="thumbnail" alt="fdef" style="height: 160px;width: 160px">
+            <span style="margin-bottom: 5px;">物品名称：${u.disgname }</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.getname }</font></div></div>
         <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.disname }</font></div></div>
-        <div class="col-md-1 col-md-offset-2" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">未完成</font></div></div>         
+        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">未完成</font></div></div>         
         </div> 
          </c:forEach>          
         <br>
@@ -107,25 +113,30 @@
                 </ul>
             </nav>
         </div>
-      </div>
-      <div class="row" id="undone">
-        <h2 style="margin-left: 50px">别人的认领</h2>
-          <c:if test="${requestScope.dis!=null && fn:length(requestScope.dis)!= 0}">
-           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物品图片</font></div>
-        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">物品索求者</font></div>
-        <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
+    </div>
+    <div class="row" id="done">
+        <h2 style="margin-left: 50px">完成的交换</h2>
+          <c:if test="${requestScope.done!=null && fn:length(requestScope.done) != 0}">
+           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">交换用物品</font></div>
+           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物主物品</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">交换者</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">物主</font></div>
+        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
           </c:if>
-       
         <br> 
-         <c:forEach items="${requestScope.dis}" var="u">
+         <c:forEach items="${requestScope.done}" var="u">
         <div style="height: 220px;margin-top: 20px;border:#E7E7E7 1px solid;">
          <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
-            <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 190px;width: 190px">
-
+            <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 160px;width: 160px">
+            <span style="margin-bottom: 5px;">物品名称：${u.getgname }</span>
         </div>
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.getname }</font></div></div>       
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large"><a href="agree.do?id=${u.dealID}">同意</a></font></div></div>
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large"><a href="disagree.do?id=${u.dealID}">不同意</a></font></div></div>
+         <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
+            <img src="${u.dpic }" class="thumbnail" alt="fdef" style="height: 160px;width: 160px">
+            <span style="margin-bottom: 5px;">物品名称：${u.disgname }</span>
+        </div>
+        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.getname }</font></div></div>
+        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.disname }</font></div></div>
+        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">已完成</font></div></div>         
         </div> 
          </c:forEach>          
         <br>
@@ -142,49 +153,8 @@
                 </ul>
             </nav>
         </div>
-      </div>
-       <div class="row" id="undone">
-        <h2 style="margin-left: 50px">物主接受的认领</h2>
-          <c:if test="${requestScope.age!=null && fn:length(requestScope.age)!= 0}">
-           <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">物品图片</font></div>
-        <div class="col-md-1 col-md-offset-1"><font style="font-size: large;color: red">物品索求者</font></div>
-        <div class="col-md-2 col-md-offset-1"><font style="font-size: large;color: red">目前状态</font></div>         
-          </c:if>
-       
-        <br> 
-         <c:forEach items="${requestScope.age}" var="u">
-        <div style="height: 220px;margin-top: 20px;border:#E7E7E7 1px solid;">
-         <div class="col-md-2 col-md-offset-1"  style="height: 200px" >
-            <img src="${u.pic }" class="thumbnail" alt="fdef" style="height: 190px;width: 190px">
-
-        </div>
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.getname }</font></div></div>              
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large">${u.goodsname }</font></div></div>  
-        <div class="col-md-1 " style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large ;color:red"><a href="dianzan.do?id=${u.distributor}">点赞</a></font></div></div> 
-        <c:choose>
-          <c:when test="${u.evaluate==null}">
-        <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size: x-large"><a href="evaluate.jsp?pic=${u.pic}&dealid=${u.dealID}&goodname=${u.goodsname}&disname=${u.disname}">评价物品</a></font></div></div>                                
-          </c:when>
-          <c:otherwise>
-                <div class="col-md-1 col-md-offset-1" style="height: 200px"><div align="center" style="margin-top: 70px"> <font style="font-size:1">评价:${u.evaluate }</font></div></div>            
-          </c:otherwise>
-        </c:choose>                  
-        </div> 
-         </c:forEach>          
-        <br>
-            <nav>
-                <ul class="pagination">
-                    <li><a href="#">&laquo;</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">&raquo;</a></li>
-                </ul>
-            </nav>
-        </div>
-      </div>
+    </div>
+    
 </div>
 <div class=panel-footer>
     <p style="text-align: center">版权所有</p>

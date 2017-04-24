@@ -40,5 +40,16 @@ public interface IUserDao {
 	public void dianzan(String userid);
 	public int getUserVote(String userid);
 	public Goods getGoodsbyGoodsName(String Goodsname);
+	public boolean isexistSwap(String disgID,String getgID);
+	public List getDoneSwap();
+	public List getUndoneSwap();
+	public List getDisagreeSwap(String userID);
+	public List getpgetundoneSwap(String userID);//
+	public List getpdisundoneSwap(String userID);//
+	public List getpdoneSwap(String userID);//
+	public void deleteSwap(String SwapID);
+	public void agreeSwap(String SwapID);
+	public void disAgreeSwap(String SwapID);
+	public void EvaluateSwap(String SwapID,String evaluate);
 	
 }

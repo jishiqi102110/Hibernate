@@ -3,11 +3,11 @@ li{
 }
 #top-left{
     float: left;
-    margin-left: 130px;
     width: 30%;
+    margin-left: 130px;
 }
 #top-right{
-    width: 55%;
+    width: 60%;
     float: right;
 }
 #header-top{
