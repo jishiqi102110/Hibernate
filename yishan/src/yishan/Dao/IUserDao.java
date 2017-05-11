@@ -3,6 +3,8 @@ package yishan.Dao;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import yishan.Po.Deal;
 import yishan.Po.Goods;
 import yishan.Po.Swap;
@@ -51,5 +53,7 @@ public interface IUserDao {
 	public void agreeSwap(String SwapID);
 	public void disAgreeSwap(String SwapID);
 	public void EvaluateSwap(String SwapID,String evaluate);
-	
+    public List getPdisagreeMyDeal(String userID);
+    public void DeleteDeal(String dealID);
+    public List getGoodsByDateOrder();
 }

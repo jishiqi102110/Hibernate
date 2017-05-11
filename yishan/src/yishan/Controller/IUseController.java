@@ -38,4 +38,8 @@ public interface IUseController {
     public String agreeSwap(String swapID);
     public String disagreeSwap(String swapID);
     public String evaluateSwap(HttpServletRequest req,String swapID,String evaluate);
+    public String deletDeal(String dealID);
+    public String IssueNeeds(String type,String discription,HttpServletRequest req);
+    public String updateGoods(HttpServletRequest request,String PID);
+    
 }

@@ -76,6 +76,12 @@ public class loginFilter implements Filter {
 		notAllowedList.add("getGoods");
 		notAllowedList.add("ptrasaction");
 		notAllowedList.add("swapgood");
+		notAllowedList.add("IssueNeed");
+		notAllowedList.add("deleteDeal");
+		notAllowedList.add("evaluateSwap");
+		notAllowedList.add("deletSwap");
+		notAllowedList.add("pSwap");
+		
 		
 	}
 }

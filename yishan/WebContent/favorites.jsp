@@ -8,6 +8,7 @@
 <title>favorites</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/Transaction.css" rel="stylesheet">
+ <link href="css/index.css" rel="stylesheet">
 <script src="js/jquery-2.2.2.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
@@ -19,16 +20,15 @@
     <![endif]-->
 </head>
 <body>
-	<div class="header" id="header" style="margin-top: 20px">
+	<div class="header" id="header">
 		<div class="navbar-default" id="header-top">
 			<div id="top-left">
 				<ul class="nav nav-pills" role="tablist">
-				     <li role="presentation" class="active"><a href="index.jsp">首页</a></li>
 					<li role="presentation" class="active"><a href="#">后台中心</a></li>
-					<li role="presentation"><a href="#">退出</a></li>
+					<li role="presentation"><a href="exit.do">退出</a></li>
 					<c:choose>
 						<c:when test="${sessionScope.user!=null}">
-							<li role="presentation"><a href="login.jsp">欢迎你<font
+							<li role="presentation"><a href="login.jsp">欢迎你   <font
 									style="color: red">${sessionScope.user.name}</font></a></li>
 						</c:when>
 						<c:otherwise>
@@ -39,12 +39,15 @@
 				</ul>
 			</div>
 			<div id="top-right">
-				<ul class="nav nav-pills" role="tablist">
-				<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
-					 <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
-                  <li role="presentation"><a href="#">需求发布</a></li>
-                  <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
-                  <li role="presentation"><a href="#">个人交易</a></li>
+				<ul class="nav nav-pills" role="tablist">							     	    
+					<li role="presentation"><a href="allSwap.do">所有物易物</a></li>
+					<li role="presentation"><a href="getDeal.do">所有认领</a></li>
+					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
+					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
+					<li role="presentation"><a href="IssueNeeds.jsp">需求发布</a></li>
+					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
+					<li role="presentation"><a href="ptrasaction.do">个人认领</a></li>
+					<li role="presentation"><a href="pSwap.do">个人物易物</a></li>
 					<li role="presentation">
 						<div class="dropdown">
 							<button class="btn btn-default dropdown-toggle" type="button"

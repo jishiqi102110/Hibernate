@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>IssueHeart</title>
+<title>updateGoods</title>
 <link href="css/bootstrap.min.css" rel="stylesheet">
 <link href="css/IssueHeart.css" rel="stylesheet" />
  <link href="css/index.css" rel="stylesheet">
@@ -119,7 +119,7 @@ $(document).on("change",'select#type',function(){
 					<div class="form-group">
 						<label for="exampleInputEmail1">物品名称</label> <input name="name"
 							type="text" class="form-control" id="exampleInputEmail1"
-							placeholder="GoodsName" required="required">
+							placeholder="GoodsName" required="required" value="${requestScope.g.name}">
 					</div>
 					<div class="form-group">
 						<label for="type">类别</label> <select class="form-control"
@@ -135,7 +135,7 @@ $(document).on("change",'select#type',function(){
 					<div class="form-group" >
 						<label for="discription">描述</label>
 						<textarea class="form-control" rows="3" id="discription"
-							name="discription"></textarea>
+							name="discription" >${requestScope.g.discription}</textarea>
 					</div>	
 					
 					<div class="form-group" id="miaoshu" name="miaoshu">

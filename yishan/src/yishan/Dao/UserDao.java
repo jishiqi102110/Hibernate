@@ -5,10 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import yishan.Po.Deal;
 import yishan.Po.Goods;
@@ -368,10 +371,10 @@ public class UserDao implements IUserDao{
 	@Override
 	public List getpersondisDeal(String userID) {
 		// TODO Auto-generated method stub
-		 String hql="from Deal as d where d.distributor=:n and d.state!=:m";
+		 String hql="from Deal as d where d.distributor=:n and d.state=:m";
     	 Query query= this.session.createQuery(hql);
     	 query.setParameter("n",userID);
-    	 query.setParameter("m","done");
+    	 query.setParameter("m","undone");
     	 ArrayList<Deal> result=new ArrayList<>();
 	   	 List list=query.list();
 	   		//存在用户
@@ -742,6 +745,62 @@ public class UserDao implements IUserDao{
 				  session.close();
 			}
 	}
-	
+	@Override
+	public List getPdisagreeMyDeal(String userID) {
+		// TODO Auto-generated method stub
+		 String hql="from Deal as d where d.getter=:n and d.state=:m";
+    	 Query query= this.session.createQuery(hql);
+    	 query.setParameter("n",userID);
+    	 query.setParameter("m","disagree");
+    	 ArrayList<Deal> result=new ArrayList<>();
+	   	 List list=query.list();
+	   		//存在用户
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Deal pp=(Deal) object;
+	   			result.add(pp);
+	   		 }
+	   	 return result;
+	}
+	@Override
+	public void DeleteDeal(String dealID) {
+		// TODO Auto-generated method stub
+		Transaction tras=session.beginTransaction();
+		 try{
+			 String hql="delete Deal as d where d.dealID=:n";
+			 Query queryupdate=session.createQuery(hql);
+			 queryupdate.setParameter("n",dealID);
+			 queryupdate.executeUpdate();
+			 tras.commit();
+		 }catch(HibernateException e) {
+				// TODO Auto-generated catch block
+				if(tras!=null){
+					 tras.rollback();
+				}
+				e.printStackTrace();
+			}finally{
+				  session.close();
+			}
+	}
+	@Override
+	public List getGoodsByDateOrder() {
+		// TODO Auto-generated method stub
+		 String hql="from Goods as g order by g.time desc";
+		 Query query= this.session.createQuery(hql);
+	   	 int i=query.list().size();
+	   	 ArrayList<Goods> result=new ArrayList<>();
+	   	 List list=query.list();
+	   	 if(i>0){
+	   		
+	   		 for(int j=0;j<list.size();j++){
+	   			 Object object=list.get(j);
+	   			 Goods pp=(Goods) object;
+	   			result.add(pp);
+	   		 }
+	   	 }
+		return list;
+	}
+
+
 	
 }

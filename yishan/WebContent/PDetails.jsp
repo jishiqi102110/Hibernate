@@ -9,6 +9,7 @@
     <title>Details</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/Details.css" rel="stylesheet">
+     <link href="css/index.css" rel="stylesheet">
     <script src="js/jquery-2.2.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
@@ -21,14 +22,14 @@
 </head>
 <body>
 <div class="header" id="header">
-    <div class="navbar-default" id="header-top">
-        <div id="top-left">
-            <ul class="nav nav-pills" role="tablist">
-                <li role="presentation" class="active"><a href="#">后台中心</a></li>
-                <li role="presentation"><a href="#">退出</a></li>
-               <c:choose>
+		<div class="navbar-default" id="header-top">
+			<div id="top-left">
+				<ul class="nav nav-pills" role="tablist">
+					<li role="presentation" class="active"><a href="#">后台中心</a></li>
+					<li role="presentation"><a href="exit.do">退出</a></li>
+					<c:choose>
 						<c:when test="${sessionScope.user!=null}">
-							<li role="presentation"><a href="login.jsp">欢迎你<font
+							<li role="presentation"><a href="login.jsp">欢迎你   <font
 									style="color: red">${sessionScope.user.name}</font></a></li>
 						</c:when>
 						<c:otherwise>
@@ -36,31 +37,39 @@
 							<li role="presentation"><a href="register.jsp">注册</a></li>
 						</c:otherwise>
 					</c:choose>
-            </ul>
-        </div>
-        <div id="top-right">
-            <ul class="nav nav-pills" role="tablist">
-                <li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
-                  <li role="presentation"><a href="#">需求发布</a></li>
-                  <li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
-                  <li role="presentation"><a href="#">个人交易</a></li>
-                <li role="presentation">
-                    <div class="dropdown">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
-                            联系我们
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">电话：*************</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">邮箱：*************</a></li>
-                            <li role="presentation"><a role="menuitem" tabindex="-1" href="#">传真：*************</a></li>
-                        </ul>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+				</ul>
+			</div>
+			<div id="top-right">
+				<ul class="nav nav-pills" role="tablist">							     	    
+					<li role="presentation"><a href="allSwap.do">所有物易物</a></li>
+					<li role="presentation"><a href="getDeal.do">所有认领</a></li>
+					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
+					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
+					<li role="presentation"><a href="IssueNeeds.jsp">需求发布</a></li>
+					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
+					<li role="presentation"><a href="ptrasaction.do">个人认领</a></li>
+					<li role="presentation"><a href="pSwap.do">个人物易物</a></li>
+					<li role="presentation">
+						<div class="dropdown">
+							<button class="btn btn-default dropdown-toggle" type="button"
+								id="dropdownMenu1" data-toggle="dropdown">
+								联系我们 <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu"
+								aria-labelledby="dropdownMenu1">
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#">电话：*************</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#">邮箱：*************</a></li>
+								<li role="presentation"><a role="menuitem" tabindex="-1"
+									href="#">传真：*************</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
 <div id="header-bottom" class="row">
     <div id="logo" class="col-md-4 col-md-offset-1" ></div>
     <div id="sousou" class="col-md-4 col-md-offset-2">
@@ -113,7 +122,7 @@
 <div class="container">
     <div class="row" style="margin-top: 20px;height: 400px">
         <div class="col-md-5 col-md-offset-2 thumbnail" style="height: 400px">
-            <img src="${param.paddress}">
+            <img src="${param.paddress}" style="height: 100%;width: 100%">
         </div>
         <div class="col-md-4">
             <div style="margin-top: 50px">
@@ -137,7 +146,7 @@
                         <div class="btn btn-lg btn-info"><a href="goodsDelet/${param.PID }.do">下架</a></div>
                     </div>
                     <div class="col-md-offset-6 col-md-3" style="margin-top: 40px">
-                        <div class="btn btn-lg btn-info"><a href="goodsDelet/${param.PID }.do">修改</a></div>
+                        <div class="btn btn-lg btn-info"><a href="goodsUpdate.do?PID=${param.PID }">修改</a></div>
                     </div>
                 </div>
             </div>

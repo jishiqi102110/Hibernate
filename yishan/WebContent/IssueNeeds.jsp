@@ -113,14 +113,9 @@ $(document).on("change",'select#type',function(){
 		</div>
 		<div class="row" style="height: auto">
 			<div class="col-md-4 col-md-offset-4">
-				<h1>发布爱心物品</h1>
-				<form class="form-horizontal" method="post" action="IssueGoods.do"
-					style="margin-top: 20px" enctype="multipart/form-data">
-					<div class="form-group">
-						<label for="exampleInputEmail1">物品名称</label> <input name="name"
-							type="text" class="form-control" id="exampleInputEmail1"
-							placeholder="GoodsName" required="required">
-					</div>
+				<h1>发布需求</h1>
+				<form class="form-horizontal" method="post" action="IssueNeed.do"
+					style="margin-top: 20px" >
 					<div class="form-group">
 						<label for="type">类别</label> <select class="form-control"
 							id="type" name="type">
@@ -161,13 +156,6 @@ $(document).on("change",'select#type',function(){
      
                     
 					</div>	
-				        
-			
-	          	    
-					<div class="form-group">
-						<label for="exampleInputFile">上传图片</label> <input type="file"
-							id="exampleInputFile" name="file">
-					</div>
 					<div class="form-group">
 						<input type="submit" class="btn btn-primary" value="上传">
 					</div>

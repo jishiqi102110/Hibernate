@@ -45,7 +45,7 @@
 					<li role="presentation"><a href="getDeal.do">所有认领</a></li>
 					<li role="presentation"><a href="favorites.jsp">收藏夹</a></li>
 					<li role="presentation"><a href="IssueHeart.jsp">发布物品</a></li>
-					<li role="presentation"><a href="#">需求发布</a></li>
+					<li role="presentation"><a href="IssueNeeds.jsp">需求发布</a></li>
 					<li role="presentation"><a href="PersonalGoodsMagager.do">物品管理</a></li>
 					<li role="presentation"><a href="ptrasaction.do">个人认领</a></li>
 					<li role="presentation"><a href="pSwap.do">个人物易物</a></li>
@@ -153,15 +153,17 @@
 			
 			<div class="col-md-3">
 				<h1 style="color: #2aabd2; background-color: #090909">最新发布</h1>
+				<c:set var="cishu" value="0"></c:set>
 				<ul class="list-group">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
+				    <c:forEach items="${requestScope.date}" var="g">
+				        <c:set value="${cishu+1}" var="cishu"></c:set>
+				        <c:if test="${cishu<=8}">
+				        <a
+						href="Details.jsp?goodsname=${g.name}&discription=${g.discription}&tel=${g.user.tel}&paddress=${g.pictureAddress}&PID=${g.id}&state=${g.goodsState}">
+				        <li class="list-group-item">${g.name}&emsp;&emsp;<span>物主：${g.user.name}</span>&emsp;<span>${g.time }</li></span> 
+						</a>
+				        </c:if>
+				    </c:forEach>
 				</ul>
 			</div>
 		</div>

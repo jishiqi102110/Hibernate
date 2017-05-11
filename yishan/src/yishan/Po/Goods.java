@@ -1,12 +1,14 @@
 package yishan.Po;
 
+import java.util.Date;
+
 public class Goods {
 	private String id;
 	private String name;
 	private String type;
 	private String discription;
     private User user;
-    private String time;
+    private Date time;
     private String pictureAddress;
     private String goodsState;
     
@@ -16,10 +18,10 @@ public class Goods {
 	public void setGoodsState(String goodsState) {
 		this.goodsState = goodsState;
 	}
-	public String getTime() {
+	public Date getTime() {
 		return time;
 	}
-	public void setTime(String time) {
+	public void setTime(Date time) {
 		this.time = time;
 	}
 	public String getPictureAddress() {

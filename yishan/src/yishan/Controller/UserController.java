@@ -191,10 +191,9 @@ public class UserController implements IUseController {
 					    //goods.setPictureAddress(saveFileDir+"/"+RandomName.getRandomName().append(fileName));
 						goods.setPictureAddress(saveFileDir+"/"+fileName);
 						SimpleDateFormat df=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-						goods.setTime(df.format(new Date()));
+						goods.setTime(new Date());
 						goods.setGoodsState("normal");
 						System.out.println(goods);
-						
 						Hsession.save(goods);
 						tras.commit();
 					} catch (Exception e) {
@@ -251,6 +250,9 @@ public class UserController implements IUseController {
 		UserDao userdao=new UserDao();
 		List<Goods> goodList=userdao.getAllGoods();
 		request.setAttribute("goodList",goodList);
+		
+		List<Goods> newIssue=userdao.getGoodsByDateOrder();
+		request.setAttribute("date", newIssue);
 		return "forward:index.jsp";
 	}
 	@RequestMapping("goodsDelet/{ID}")
@@ -382,14 +384,17 @@ public class UserController implements IUseController {
 		ArrayList<Deal> get=new ArrayList<>();
 		ArrayList<Deal> dis=new ArrayList<>();		
 		ArrayList<Deal> age=new ArrayList<>();		
+		ArrayList<Deal> disagree=new ArrayList<>();		
 		User u=(User) ses.getAttribute("user");
 		User uu=userdao.getUserByName(u.getName());
 		get=(ArrayList<Deal>) userdao.getpersongetDeal(uu.getId());
 		dis=(ArrayList<Deal>) userdao.getpersondisDeal(uu.getId());
 		age=(ArrayList<Deal>) userdao.getpersonagreeDeal(uu.getId());
+		disagree =(ArrayList<Deal>) userdao.getPdisagreeMyDeal(uu.getId());
 		req.setAttribute("get",get);
 		req.setAttribute("dis",dis);
 		req.setAttribute("age",age);
+		req.setAttribute("disagree",disagree);
 		return "pTranScation.jsp";
 	}
 	@RequestMapping("agree")
@@ -571,5 +576,49 @@ public class UserController implements IUseController {
 		UserDao userdao=new UserDao();
 		userdao.EvaluateSwap(swapID, evaluate);
 		return "redirect:pSwap.do";
+	}
+	@RequestMapping("deleteDeal")
+	@Override
+	public String deletDeal(String dealID) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		userdao.DeleteDeal(dealID);
+		return "redirect:ptrasaction.do";
+	}
+	@RequestMapping("IssueNeed")
+	@Override
+	public String IssueNeeds(String type, String discription, HttpServletRequest req) {
+		// TODO Auto-generated method stub
+		 UserDao userdao=new UserDao();
+		 ArrayList<Goods> glist= (ArrayList<Goods>) userdao.getSearchGoods(type);
+		 ArrayList<Goods> glist2=(ArrayList<Goods>) userdao.getSearchGoods(discription);	
+		 
+		 for(int i=0;i<glist2.size();i++){
+			 Object o2=glist2.get(i);
+			 Goods g2=(Goods) o2;
+			 boolean flag=true;
+			 for(int j=0;j<glist.size();j++){
+				Object o1=glist.get(j);
+				Goods g1=(Goods) o1;
+				if(g1.getId().equals(g2.getId())){
+					flag=false;
+					break;
+				}
+			 }
+			 if(flag){
+				 glist.add(g2);
+			 }
+		 }
+		 req.setAttribute("sgoods", glist);
+			return "forward:Searchpage.jsp";
+	}
+	@RequestMapping("goodsUpdate")
+	@Override
+	public String updateGoods(HttpServletRequest request, String PID) {
+		// TODO Auto-generated method stub
+		UserDao userdao=new UserDao();
+		Goods g=userdao.getGoodsbyID(PID);
+		request.setAttribute("g", g);
+		return "updateGoods.jsp";
 	}
 }
